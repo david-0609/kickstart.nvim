@@ -338,7 +338,12 @@ end
   {'rareitems/hl_match_area.nvim',
     lazy = false,
     config = function ()
-      require("hl_match_area").setup()
+      require("hl_match_area").setup(
+        {
+            highlight_in_insert_mode = true, -- should highlighting also be done in insert mode
+            delay = 100, -- delay before the highglight
+        }
+      )
     end
   },
   {'andweeb/presence.nvim',
@@ -453,7 +458,20 @@ end
   {'fedepujol/move.nvim', lazy = true, event = "BufRead"},
   {
   "HiPhish/nvim-ts-rainbow2",
-  dependencies = "nvim-treesitter"
+  dependencies = "nvim-treesitter",
+    config = function ()
+      require('nvim-treesitter.configs').setup {
+  rainbow = {
+    enable = true,
+    -- list of languages you want to disable the plugin for
+    disable = { 'jsx', 'cpp' },
+    -- Which query to use for finding delimiters
+    query = 'rainbow-parens',
+    -- Highlight the entire buffer all at once
+    strategy = require('ts-rainbow').strategy.global,
+  }
+}
+    end
   },
   {
     'AckslD/muren.nvim',
