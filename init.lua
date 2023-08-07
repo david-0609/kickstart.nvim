@@ -145,7 +145,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
       },
@@ -208,7 +208,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -446,6 +446,11 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  ltex = {
+      language = "en-GB",
+      disabledRules = {["en-GB"] = {"OXFORD_SPELLING_Z_NOT_S", "ARROWS", "NORTH_POLE"}, }
+    }
+
 }
 
 -- Setup neovim lua configuration
@@ -523,3 +528,5 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+require("custom.init")
