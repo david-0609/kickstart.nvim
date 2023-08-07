@@ -293,7 +293,7 @@ end
         workspaces = {                             -- Default workspaces to search for
           -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
           { "~/Documents/dev", { ".git", "Cargo.toml" } },
-          { "~/.config" , { ".git", "init.lua" } },
+          { "~/.config" , { ".git", "init.lua", "nvim"} },
           -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
       },
 

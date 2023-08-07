@@ -144,7 +144,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'auto',
         component_separators = '|',
         section_separators = '',
@@ -432,27 +432,28 @@ end
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
-local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-  ltex = {
-      language = "en-GB",
-      disabledRules = {["en-GB"] = {"OXFORD_SPELLING_Z_NOT_S", "ARROWS", "NORTH_POLE"}, }
-    }
-
-}
-
+-- local servers = {
+--   -- clangd = {},
+--   -- gopls = {},
+--   -- pyright = {},
+--   -- tsserver = {},
+--   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+--
+--   lua_ls = {
+--     Lua = {
+--       workspace = { checkThirdParty = false },
+--       telemetry = { enable = false },
+--     },
+--   },
+--   ltex = {
+--     ltex = {
+--       language = "en-GB",
+--       disabledRules = {["en-GB"] = {"OXFORD_SPELLING_Z_NOT_S", "ARROWS", "NORTH_POLE"}, }
+--     },
+--   },
+--
+-- }
+local servers = require("custom.servers")
 -- Setup neovim lua configuration
 require('neodev').setup()
 
