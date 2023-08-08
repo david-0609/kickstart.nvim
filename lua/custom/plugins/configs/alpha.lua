@@ -1,32 +1,32 @@
-local present, alpha = pcall(require, "alpha")
+local present, alpha = pcall(require, 'alpha')
 
 if not present then
   return
 end
 
 local function button(sc, txt, keybind)
-  local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+  local sc_ = sc:gsub('%s', ''):gsub('SPC', '<leader>')
 
   local opts = {
-    position = "center",
+    position = 'center',
     text = txt,
     shortcut = sc,
     cursor = 5,
     width = 36,
-    align_shortcut = "right",
-    hl = "NavicIconsKey"
+    align_shortcut = 'right',
+    hl = 'NavicIconsKey',
   }
 
   if keybind then
-    opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
+    opts.keymap = { 'n', sc_, keybind, { noremap = true, silent = true } }
   end
 
   return {
-    type = "button",
+    type = 'button',
     val = txt,
     on_press = function()
-      local key = vim.api.nvim_replace_termcodes(sc_, true, false, true) or ""
-      vim.api.nvim_feedkeys(key, "normal", false)
+      local key = vim.api.nvim_replace_termcodes(sc_, true, false, true) or ''
+      vim.api.nvim_feedkeys(key, 'normal', false)
     end,
     opts = opts,
   }
@@ -40,42 +40,42 @@ local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
 local options = {
 
   header = {
-    type = "text",
+    type = 'text',
     val = {
-    "                                                     ",
-    "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-    "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-    "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-    "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-    "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-    "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-    "                                                     ",
-   },
+      '                                                     ',
+      '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
+      '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
+      '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
+      '  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ',
+      '  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ',
+      '  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ',
+      '                                                     ',
+    },
     opts = {
-      position = "center",
-      hl = "Function"
+      position = 'center',
+      hl = 'Function',
     },
   },
 
   buttons = {
-    type = "group",
+    type = 'group',
     val = {
-      button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-      button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-      button("e", "  New file", ":ene | startinsert <CR>"),
+      button('SPC f f', '  Find File  ', ':Telescope find_files<CR>'),
+      button('SPC f o', '  Recent File  ', ':Telescope oldfiles<CR>'),
+      button('e', '  New file', ':ene | startinsert <CR>'),
       -- button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
       -- button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
-      button("SPC f p", "  Projects", ":Telescope projections<CR>"),
-      button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
-      button(":qa", "  Exit Neovim", ":qa<CR>")
+      button('SPC f p', '  Projects', ':Telescope projections<CR>'),
+      button('SPC e s', '  Settings', ':e $MYVIMRC | :cd %:p:h <CR>'),
+      button(':qa', '  Exit Neovim', ':qa<CR>'),
     },
     opts = {
       spacing = 1,
     },
   },
 
-  headerPaddingTop = { type = "padding", val = headerPadding },
-  headerPaddingBottom = { type = "padding", val = 2 },
+  headerPaddingTop = { type = 'padding', val = headerPadding },
+  headerPaddingBottom = { type = 'padding', val = 2 },
 }
 
 alpha.setup {
@@ -89,12 +89,12 @@ alpha.setup {
 }
 
 -- Disable statusline in dashboard
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "alpha",
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'alpha',
   callback = function()
     -- store current statusline value and use that
     local old_laststatus = vim.opt.laststatus
-    vim.api.nvim_create_autocmd("BufUnload", {
+    vim.api.nvim_create_autocmd('BufUnload', {
       buffer = 0,
       callback = function()
         vim.opt.laststatus = old_laststatus
@@ -105,6 +105,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Disable folding on alpha buffer
-vim.cmd([[
+vim.cmd [[
     autocmd FileType alpha setlocal nofoldenable
-]])
+]]

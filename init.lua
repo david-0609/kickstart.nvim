@@ -56,7 +56,7 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
+--
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
@@ -101,6 +101,9 @@ require('lazy').setup({
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-calc',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -145,9 +148,37 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
+        theme = 'tokyonight',
+        -- component_separators = '|',
+        -- section_separators = '',
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
+
+        always_divide_middle = false,
+        globalstatus = true,
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = {
+          'branch',
+          {
+            'diff',
+            symbols = { added = '＋', modified = 'Δ', removed = '－' },
+          },
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+          },
+        },
+        lualine_c = {
+          {
+            'filename',
+            path = 0,
+          },
+        },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
     },
   },
@@ -301,7 +332,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -311,7 +342,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml', 'zig', 'html', 'markdown' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -453,14 +484,19 @@ end
 --   },
 --
 -- }
-local servers = require("custom.servers")
+local servers = require 'custom.servers'
 -- Setup neovim lua configuration
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
+local lspkind = require 'lspkind'
+lspkind.init {
+  symbol_map = {
+    TypeParameter = '',
+  },
+}
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -476,7 +512,7 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
-  end
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -491,6 +527,9 @@ cmp.setup {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
+  },
+  experimental = {
+    ghost_text = true,
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -521,13 +560,74 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+  sources = cmp.config.sources {
+    { name = 'nvim_lsp', priority = 9 },
+    { name = 'luasnip', priority = 10 },
+    { name = 'calc' },
+    { name = 'path' },
+    {
+      name = 'buffer',
+      priority = -2, -- Force buffer suggestions to the bottom
+      option = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end,
+      },
+    },
+  },
+  window = {
+    completion = cmp.config.window.bordered {
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+      col_offset = -3,
+      side_padding = 0,
+    },
+    documentation = cmp.config.window.bordered {
+      winhighlight = '',
+    },
+  },
+  formatting = {
+    fields = { 'kind', 'abbr', 'menu' },
+    format = function(entry, vim_item)
+      local kind = lspkind.cmp_format {
+        mode = 'symbol_text',
+        maxwidth = 50,
+        menu = { omni = 'omni' },
+      }(entry, vim_item)
+      local strings = vim.split(kind.kind, '%s', { trimempty = true })
+      kind.kind = ' ' .. (strings[1] or '') .. ' '
+
+      -- Kind icons
+      --vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      -- Source
+      local menu_icon = {
+        luasnip = '[LuaSnip]',
+        nvim_lua = '[Lua]',
+        calc = ' 󰃬 ',
+      }
+      if entry.source.name == 'calc' then
+        -- Get the custom icon for 'calc' source
+        -- Replace the kind glyph with the custom icon
+        vim_item.kind = menu_icon.calc
+        vim_item.menu = 'Calculator'
+        kind.menu = 'Calculator'
+      end
+      kind.menu = '    (' .. (strings[2] or '') .. ') '
+      return kind
+    end,
+  },
+
+  view = {
+    native_menu = false,
+    entries = 'custom',
+    window = {
+      completion = {
+        border = 'rounded',
+        winhighlight = 'FloatBorder',
+      },
+    },
   },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
-require("custom.init")
+require 'custom.init'
