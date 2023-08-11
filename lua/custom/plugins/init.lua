@@ -50,7 +50,6 @@ return {
   { 'nvim-tree/nvim-tree.lua' },
   {
     'akinsho/toggleterm.nvim',
-    lazy = false,
     version = '*',
     config = function()
       require('toggleterm').setup {
@@ -247,6 +246,8 @@ return {
   } },
   {
     'NvChad/nvim-colorizer.lua',
+    lazy = true,
+    event = 'BufRead',
     config = function()
       require('colorizer').setup {
         filetypes = { '*' },
@@ -316,41 +317,42 @@ return {
   { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
   {
     'gnikdroy/projections.nvim',
+    lazy = true,
     branch = 'pre_release',
-    config = function()
-      require('projections').setup {
-        workspaces = { -- Default workspaces to search for
-          -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
-          { '~/Documents/dev', { '.git', 'Cargo.toml' } },
-          { '~/.config', { '.git', 'init.lua', 'nvim' } },
-          -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
-        },
-      }
-
-      -- Bind <leader>fp to Telescope projections
-      require('telescope').load_extension 'projections'
-      vim.keymap.set('n', '<leader>fp', function()
-        vim.cmd 'Telescope projections'
-      end)
-
-      -- Autostore session on VimExit
-      local Session = require 'projections.session'
-      vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
-        callback = function()
-          Session.store(vim.loop.cwd())
-        end,
-      })
-
-      -- Switch to project if vim was started in a project dir
-      local switcher = require 'projections.switcher'
-      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-        callback = function()
-          if vim.fn.argc() == 0 then
-            switcher.switch(vim.loop.cwd())
-          end
-        end,
-      })
-    end,
+    -- config = function()
+    --   require('projections').setup {
+    --     workspaces = { -- Default workspaces to search for
+    --       -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
+    --       { '~/Documents/dev', { '.git', 'Cargo.toml' } },
+    --       { '~/.config', { '.git', 'init.lua', 'nvim' } },
+    --       -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
+    --     },
+    --   }
+    --
+    --   -- Bind <leader>fp to Telescope projections
+    --   require('telescope').load_extension 'projections'
+    --   vim.keymap.set('n', '<leader>fp', function()
+    --     vim.cmd 'Telescope projections'
+    --   end)
+    --
+    --   -- Autostore session on VimExit
+    --   local Session = require 'projections.session'
+    --   vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
+    --     callback = function()
+    --       Session.store(vim.loop.cwd())
+    --     end,
+    --   })
+    --
+    --   -- Switch to project if vim was started in a project dir
+    --   local switcher = require 'projections.switcher'
+    --   vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    --     callback = function()
+    --       if vim.fn.argc() == 0 then
+    --         switcher.switch(vim.loop.cwd())
+    --       end
+    --     end,
+    --   })
+    -- end,
   },
   { 'nullchilly/fsread.nvim', lazy = false },
   {
@@ -378,7 +380,10 @@ return {
       }
     end,
   },
-  { 'andweeb/presence.nvim', lazy = true },
+  {
+    'andweeb/presence.nvim',
+    lazy = true,
+  },
   {
     'asiryk/auto-hlsearch.nvim',
     lazy = false,
@@ -493,22 +498,28 @@ return {
     end,
   },
   { 'fedepujol/move.nvim', lazy = true, event = 'BufRead' },
+  -- {
+  --   'HiPhish/nvim-ts-rainbow2',
+  --   lazy = true,
+  --   event = 'BufRead',
+  --   dependencies = 'nvim-treesitter',
+  --   config = function()
+  --     require('nvim-treesitter.configs').setup {
+  --       rainbow = {
+  --         enable = true,
+  --         -- list of languages you want to disable the plugin for
+  --         disable = { 'jsx', 'cpp' },
+  --         -- Which query to use for finding delimiters
+  --         query = 'rainbow-parens',
+  --         -- Highlight the entire buffer all at once
+  --         strategy = require('ts-rainbow').strategy.global,
+  --       },
+  --     }
+  --   end,
+  -- },
   {
-    'HiPhish/nvim-ts-rainbow2',
-    dependencies = 'nvim-treesitter',
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        rainbow = {
-          enable = true,
-          -- list of languages you want to disable the plugin for
-          disable = { 'jsx', 'cpp' },
-          -- Which query to use for finding delimiters
-          query = 'rainbow-parens',
-          -- Highlight the entire buffer all at once
-          strategy = require('ts-rainbow').strategy.global,
-        },
-      }
-    end,
+    'HiPhish/rainbow-delimiters.nvim',
+    lazy = true,
   },
   {
     'AckslD/muren.nvim',
@@ -527,5 +538,5 @@ return {
     end,
   },
   { 'sbdchd/neoformat', lazy = true, cmd = 'Neoformat' },
-  {"onsails/lspkind.nvim"}
+  { 'onsails/lspkind.nvim' },
 }

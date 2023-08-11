@@ -77,6 +77,8 @@ require('lazy').setup({
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    lazy = true,
+    event = 'BufRead',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
@@ -94,6 +96,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -144,6 +147,8 @@ require('lazy').setup({
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    lazy = true,
+    event = 'BufRead',
     -- See `:help lualine.txt`
     opts = {
       options = {
@@ -221,6 +226,8 @@ require('lazy').setup({
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    lazy = true,
+    event = 'BufRead',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -342,7 +349,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml', 'zig', 'html', 'markdown' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml', 'html', 'markdown' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -561,8 +568,8 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = cmp.config.sources {
-    { name = 'nvim_lsp', priority = 9 },
-    { name = 'luasnip', priority = 10 },
+    { name = 'nvim_lsp', priority = 10 },
+    { name = 'luasnip', priority = 9 },
     { name = 'calc' },
     { name = 'path' },
     {
