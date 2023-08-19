@@ -46,7 +46,7 @@ map('n', '<leader>te', '<cmd>NvimTreeToggle<cr>', { noremap = true, silent = tru
 map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { noremap = true, silent = true })
 
 map('n', '<leader>wp', '<cmd> ToggleWrapMode <cr>', { noremap = true, silent = true })
-map('n', '<leader>uu', '<cmd> Lazy update <cr>', { noremap = true, silent = true })
+map('n', '<leader>uu', '<cmd> Lazy sync <cr>', { noremap = true, silent = true })
 
 map('n', '<leader>bb', '<cmd> Navbuddy <cr>', { noremap = true, silent = true })
 map('n', '<leader>zm', '<cmd> ZenMode <cr>', { noremap = true, silent = true })

@@ -96,7 +96,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    event = "InsertEnter",
+    event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -149,43 +149,10 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     lazy = true,
     event = 'BufRead',
+    config = function()
+      require 'custom.plugins.configs.lualine-conf'
+    end,
     -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'tokyonight',
-        -- component_separators = '|',
-        -- section_separators = '',
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
-
-        always_divide_middle = false,
-        globalstatus = true,
-      },
-      sections = {
-        lualine_a = { 'mode' },
-        lualine_b = {
-          'branch',
-          {
-            'diff',
-            symbols = { added = '＋', modified = 'Δ', removed = '－' },
-          },
-          {
-            'diagnostics',
-            sources = { 'nvim_diagnostic' },
-          },
-        },
-        lualine_c = {
-          {
-            'filename',
-            path = 0,
-          },
-        },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' },
-      },
-    },
   },
 
   {
