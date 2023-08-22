@@ -440,7 +440,7 @@ return {
   {
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
+    event = 'VeryLazy',
     config = function()
       require('nvim-surround').setup {
         -- Configuration here, or leave empty to use defaults
@@ -540,6 +540,20 @@ return {
   },
   { 'sbdchd/neoformat', lazy = true, cmd = 'Neoformat' },
   { 'onsails/lspkind.nvim' },
-  {"justinhj/battery.nvim"}
-
+  { 'justinhj/battery.nvim' },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      'rcarriga/nvim-notify',
+    },
+  },
 }
