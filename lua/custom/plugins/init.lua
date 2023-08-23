@@ -27,7 +27,7 @@ return {
   {
     'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function()
@@ -45,7 +45,9 @@ return {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
-    opts = {},
+    opts = {
+      transparent = true
+    },
   },
   { 'nvim-tree/nvim-tree.lua' },
   {
@@ -86,7 +88,7 @@ return {
       }
     end,
   },
-  { 'romgrk/barbar.nvim', lazy = true, event = 'BufRead' },
+  { 'romgrk/barbar.nvim',     lazy = true, event = 'BufRead' },
   {
     'folke/zen-mode.nvim',
     lazy = true,
@@ -242,9 +244,14 @@ return {
       require('git-conflict').setup()
     end,
   },
-  { 'folke/which-key.nvim', lazy = false, disable = false, override_options = {
+  {
+    'folke/which-key.nvim',
+    lazy = false,
     disable = false,
-  } },
+    override_options = {
+      disable = false,
+    }
+  },
   {
     'NvChad/nvim-colorizer.lua',
     lazy = true,
@@ -253,20 +260,20 @@ return {
       require('colorizer').setup {
         filetypes = { '*' },
         user_default_options = {
-          RGB = true, -- #RGB hex codes
-          RRGGBB = true, -- #RRGGBB hex codes
-          names = true, -- "Name" codes like Blue or blue
-          RRGGBBAA = false, -- #RRGGBBAA hex codes
-          AARRGGBB = false, -- 0xAARRGGBB hex codes
-          rgb_fn = false, -- CSS rgb() and rgba() functions
-          hsl_fn = false, -- CSS hsl() and hsla() functions
-          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          RGB = true,          -- #RGB hex codes
+          RRGGBB = true,       -- #RRGGBB hex codes
+          names = true,        -- "Name" codes like Blue or blue
+          RRGGBBAA = false,    -- #RRGGBBAA hex codes
+          AARRGGBB = false,    -- 0xAARRGGBB hex codes
+          rgb_fn = false,      -- CSS rgb() and rgba() functions
+          hsl_fn = false,      -- CSS hsl() and hsla() functions
+          css = true,          -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+          css_fn = true,       -- Enable all CSS *functions*: rgb_fn, hsl_fn
           -- Available modes for `mode`: foreground, background,  virtualtext
           mode = 'background', -- Set the display mode.
           -- Available methods are false / true / "normal" / "lsp" / "both"
           -- True is same as normal
-          tailwind = true, -- Enable tailwind colors
+          tailwind = true,                                -- Enable tailwind colors
           -- parsers can contain values used in |user_default_options|
           sass = { enable = false, parsers = { 'css' } }, -- Enable sass colors
           virtualtext = '■',
@@ -284,7 +291,7 @@ return {
       require('smoothcursor').setup()
     end,
   },
-  { 'sindrets/diffview.nvim', lazy = true, event = 'BufRead' },
+  { 'sindrets/diffview.nvim',   lazy = true,             event = 'BufRead' },
   { 'simrat39/rust-tools.nvim', after = 'nvim-lspconfig' },
   {
     'm-demare/hlargs.nvim',
@@ -300,11 +307,15 @@ return {
       require('swenv').setup()
     end,
   },
-  { 'lervag/vimtex', lazy = true, ft = {
-    'tex',
-    'plaintex',
-    'texinfo',
-  } },
+  {
+    'lervag/vimtex',
+    lazy = true,
+    ft = {
+      'tex',
+      'plaintex',
+      'texinfo',
+    }
+  },
   {
     'gorbit99/codewindow.nvim',
     lazy = true,
@@ -355,13 +366,13 @@ return {
     --   })
     -- end,
   },
-  { 'nullchilly/fsread.nvim', lazy = false },
+  { 'nullchilly/fsread.nvim',   lazy = false },
   {
     'Wansmer/treesj',
     keys = { '<space>m', '<space>j', '<space>s' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('treesj').setup {--[[ your config ]]
+      require('treesj').setup { --[[ your config ]]
       }
     end,
   },
@@ -377,7 +388,7 @@ return {
     config = function()
       require('hl_match_area').setup {
         highlight_in_insert_mode = true, -- should highlighting also be done in insert mode
-        delay = 100, -- delay before the highglight
+        delay = 100,                     -- delay before the highglight
       }
     end,
   },
@@ -498,7 +509,7 @@ return {
       }
     end,
   },
-  { 'fedepujol/move.nvim', lazy = true, event = 'BufRead' },
+  { 'fedepujol/move.nvim',        lazy = true, event = 'BufRead' },
   -- {
   --   'HiPhish/nvim-ts-rainbow2',
   --   lazy = true,
@@ -530,6 +541,13 @@ return {
   {
     'Exafunction/codeium.vim',
     lazy = false,
+    config = function()
+      -- Change '<C-g>' here to any keycode you like.
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
   },
   {
     'tzachar/highlight-undo.nvim',
@@ -538,7 +556,7 @@ return {
       require('highlight-undo').setup()
     end,
   },
-  { 'sbdchd/neoformat', lazy = true, cmd = 'Neoformat' },
+  { 'sbdchd/neoformat',     lazy = true, cmd = 'Neoformat' },
   { 'onsails/lspkind.nvim' },
   { 'justinhj/battery.nvim' },
   {
@@ -554,6 +572,34 @@ return {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       'rcarriga/nvim-notify',
+    },
+  },
+  {
+    "Dhanus3133/LeetBuddy.nvim",
+    lazy = true,
+    cmd = {
+      "LBQuestions",
+      "LBQuestion",
+      "LBReset",
+      "LBTest",
+      "LBSubmit",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("leetbuddy").setup({
+        domain = "com",
+        langauge = "py"
+      })
+    end,
+    keys = {
+      { "<leader>lq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
+      { "<leader>ll", "<cmd>LBQuestion<cr>",  desc = "View Question" },
+      { "<leader>lr", "<cmd>LBReset<cr>",     desc = "Reset Code" },
+      { "<leader>lt", "<cmd>LBTest<cr>",      desc = "Run Code" },
+      { "<leader>ls", "<cmd>LBSubmit<cr>",    desc = "Submit Code" },
     },
   },
 }

@@ -230,3 +230,5 @@ require("noice").setup({
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
 })
+
+vim.g.codeium_disable_bindings = 1
