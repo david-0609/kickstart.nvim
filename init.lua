@@ -456,5 +456,10 @@ mason_lspconfig.setup_handlers {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-require 'custom.cmpsetup'
+
+vim.cmd 'autocmd InsertEnter * lua setup_cmp()'
+function setup_cmp()
+  require 'custom.cmpsetup'
+end
+
 require 'custom.init'
