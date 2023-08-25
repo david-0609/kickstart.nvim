@@ -301,13 +301,6 @@ return {
     -- end
   },
   {
-    'AckslD/swenv.nvim',
-    lazy = false,
-    config = function()
-      require('swenv').setup()
-    end,
-  },
-  {
     'lervag/vimtex',
     lazy = true,
     ft = {
