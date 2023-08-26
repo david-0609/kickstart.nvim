@@ -21,18 +21,17 @@ return {
   },
   {
     'windwp/nvim-autopairs',
+    lazy = true,
     event = 'InsertEnter',
     opts = {},
   },
-  {
-    'romgrk/barbar.nvim',
+  {'romgrk/barbar.nvim',
+    lazy = true,
     dependencies = {
-      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
+    init = function() vim.g.barbar_auto_setup = false end,
     opts = {
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
@@ -88,7 +87,6 @@ return {
       }
     end,
   },
-  { 'romgrk/barbar.nvim',     lazy = true, event = 'BufRead' },
   {
     'folke/zen-mode.nvim',
     lazy = true,
@@ -179,7 +177,8 @@ return {
   --}
   {
     'Djancyp/better-comments.nvim',
-    lazy = false,
+    lazy = true,
+    event = 'BufRead',
     run = function()
       require('better-comment').Setup()
     end,
@@ -192,6 +191,7 @@ return {
   --
   {
     'gaoDean/autolist.nvim',
+    lazy = true,
     ft = {
       'markdown',
       'text',
@@ -205,7 +205,7 @@ return {
       vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
       vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
       -- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
-      vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>')
+      vim.keymap.set('i', '<cr>', '<cr><cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
       vim.keymap.set('n', '<CR>', '<cmd>AutolistToggleCheckbox<cr><CR>')
@@ -243,14 +243,6 @@ return {
     config = function()
       require('git-conflict').setup()
     end,
-  },
-  {
-    'folke/which-key.nvim',
-    lazy = false,
-    disable = false,
-    override_options = {
-      disable = false,
-    }
   },
   {
     'NvChad/nvim-colorizer.lua',
@@ -488,6 +480,7 @@ return {
   },
   {
     'SmiteshP/nvim-navbuddy',
+    lazy = true,
     dependencies = {
       'neovim/nvim-lspconfig',
       'SmiteshP/nvim-navic',
@@ -502,7 +495,11 @@ return {
       }
     end,
   },
-  { 'fedepujol/move.nvim',        lazy = true, event = 'BufRead' },
+  {
+    'fedepujol/move.nvim',
+    lazy = true,
+    event = 'BufRead',
+  },
   -- {
   --   'HiPhish/nvim-ts-rainbow2',
   --   lazy = true,
@@ -533,7 +530,8 @@ return {
   },
   {
     'Exafunction/codeium.vim',
-    lazy = false,
+    lazy = true,
+    event = "InsertEnter",
     config = function()
       -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })

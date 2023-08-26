@@ -232,3 +232,20 @@ require("noice").setup({
 })
 
 vim.g.codeium_disable_bindings = 1
+
+local barbar_loaded = false
+function lazy_load_barbar()
+  -- Count number of open buffers
+  local num_buffers = 0
+  for _ in pairs(vim.api.nvim_list_bufs()) do
+    num_buffers = num_buffers + 1
+  end
+  if not barbar_loaded then
+    if num_buffers > 1 then
+      require('barbar').setup()
+      barbar_loaded = true
+    end
+  end
+end
+
+vim.cmd 'autocmd BufRead * lua lazy_load_barbar()'
