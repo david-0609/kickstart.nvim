@@ -25,10 +25,11 @@ return {
     event = 'InsertEnter',
     opts = {},
   },
-  {'romgrk/barbar.nvim',
+  {
+    'romgrk/barbar.nvim',
     lazy = true,
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function() vim.g.barbar_auto_setup = false end,
@@ -316,40 +317,6 @@ return {
     'gnikdroy/projections.nvim',
     lazy = true,
     branch = 'pre_release',
-    -- config = function()
-    --   require('projections').setup {
-    --     workspaces = { -- Default workspaces to search for
-    --       -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
-    --       { '~/Documents/dev', { '.git', 'Cargo.toml' } },
-    --       { '~/.config', { '.git', 'init.lua', 'nvim' } },
-    --       -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
-    --     },
-    --   }
-    --
-    --   -- Bind <leader>fp to Telescope projections
-    --   require('telescope').load_extension 'projections'
-    --   vim.keymap.set('n', '<leader>fp', function()
-    --     vim.cmd 'Telescope projections'
-    --   end)
-    --
-    --   -- Autostore session on VimExit
-    --   local Session = require 'projections.session'
-    --   vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
-    --     callback = function()
-    --       Session.store(vim.loop.cwd())
-    --     end,
-    --   })
-    --
-    --   -- Switch to project if vim was started in a project dir
-    --   local switcher = require 'projections.switcher'
-    --   vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-    --     callback = function()
-    --       if vim.fn.argc() == 0 then
-    --         switcher.switch(vim.loop.cwd())
-    --       end
-    --     end,
-    --   })
-    -- end,
   },
   { 'nullchilly/fsread.nvim',   lazy = false },
   {
@@ -361,12 +328,6 @@ return {
       }
     end,
   },
-  -- ["shortcuts/no-neck-pain.nvim"] = {
-  --     tag = "*",
-  --     config = function ()
-  --       require("no-neck-pain").setup()
-  --     end
-  --   },
   {
     'rareitems/hl_match_area.nvim',
     lazy = false,
@@ -547,7 +508,6 @@ return {
       require('highlight-undo').setup()
     end,
   },
-  { 'sbdchd/neoformat',     lazy = true, cmd = 'Neoformat' },
   { 'onsails/lspkind.nvim' },
   { 'justinhj/battery.nvim' },
   {
@@ -592,5 +552,37 @@ return {
       { "<leader>lt", "<cmd>LBTest<cr>",      desc = "Run Code" },
       { "<leader>ls", "<cmd>LBSubmit<cr>",    desc = "Submit Code" },
     },
+  },
+  {
+    'mrjones2014/legendary.nvim',
+    lazy = true,
+    cmd = 'Legendary',
+    version = 'v2.1.0',
+    -- since legendary.nvim handles all your keymaps/commands,
+    -- its recommended to load legendary.nvim before other plugins
+    -- priority = 10000,
+    -- lazy = false,
+    -- sqlite is only needed if you want to use frecency sorting
+    -- dependencies = { 'kkharji/sqlite.lua' }
+    config = function()
+      require('legendary').setup({
+        which_key = {
+          auto_register = true,
+        },
+        lazy_nvim = {
+          -- Automatically register keymaps that are defined on lazy.nvim plugin specs
+          -- using the `keys = {}` property.
+          auto_register = true,
+        },
+        extensions = {
+          nvim_tree = true,
+          smart_splits = {},
+        }
+      })
+    end
+  },
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
   },
 }

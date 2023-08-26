@@ -68,3 +68,4 @@ map('v', '<A-l>', ':MoveHBlock(1)<CR>', opts)
 
 map('n', '<leader>tf', '<cmd> FSToggle <cr>', { noremap = true, silent = true })
 map('n', '<leader>fn', '<cmd> Neoformat <cr>', { noremap = true, silent = true })
+map('n', '<leader>lb', '<cmd> Legendary <cr>', { noremap = true, silent = true })
