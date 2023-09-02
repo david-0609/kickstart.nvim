@@ -81,10 +81,42 @@ return {
   },
   {
     'rmagatti/goto-preview',
-    lazy = false,
+    lazy = true,
+    keys = {
+      {
+        'gpd',
+        function()
+          require('goto-preview').goto_preview_definition()
+        end,
+      },
+      {
+        'gpi',
+        function()
+          require('goto-preview').goto_preview_implementation()
+        end,
+      },
+      {
+        'gpt',
+        function()
+          require('goto-preview').goto_preview_type_definition()
+        end,
+      },
+      {
+        'gpr',
+        function()
+          require('goto-preview').goto_preview_references()
+        end,
+      },
+      {
+        'gP',
+        function()
+          require('goto-preview').close_all_win()
+        end,
+      }
+    },
     config = function()
       require('goto-preview').setup {
-        default_mappings = true,
+        default_mappings = false,
       }
     end,
   },
@@ -100,17 +132,17 @@ return {
       }
     end,
   },
-  {
-    'dinhhuy258/git.nvim',
-    event = 'BufRead',
-    config = function()
-      require('git').setup()
-    end,
-  },
+  -- {
+  --   'dinhhuy258/git.nvim',
+  --   event = 'BufRead',
+  --   config = function()
+  --     require('git').setup()
+  --   end,
+  -- },
   {
     'lewis6991/gitsigns.nvim',
     lazy = true,
-    event = 'BufRead',
+    cmd = "Gitsigns",
     config = function()
       require('gitsigns').setup()
     end,
@@ -390,6 +422,8 @@ return {
   },
   {
     'L3MON4D3/LuaSnip',
+    lazy = true,
+    event = "InsertEnter",
     version = '1.*',
     build = 'make install_jsregexp',
     requires = { 'rafamadriz/friendly-snippets', 'molleweide/LuaSnip-snippets.nvim' },
@@ -584,5 +618,10 @@ return {
   {
     'stevearc/dressing.nvim',
     opts = {},
+  },
+  {
+    'tpope/vim-fugitive',
+    lazy = true,
+    cmd = "Git"
   },
 }
