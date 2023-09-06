@@ -52,6 +52,15 @@ return {
   { 'nvim-tree/nvim-tree.lua' },
   {
     'akinsho/toggleterm.nvim',
+    lazy = true,
+    keys = {
+      {
+        "<c-t>",
+        function ()
+          require('toggleterm').toggle()
+        end
+      }
+    },
     version = '*',
     config = function()
       require('toggleterm').setup {
@@ -350,7 +359,11 @@ return {
     lazy = true,
     branch = 'pre_release',
   },
-  { 'nullchilly/fsread.nvim',   lazy = false },
+  {
+    'nullchilly/fsread.nvim',
+    lazy = true,
+    cmd = "FSToggle"
+  },
   {
     'Wansmer/treesj',
     keys = { '<space>m', '<space>j', '<space>s' },
@@ -362,7 +375,8 @@ return {
   },
   {
     'rareitems/hl_match_area.nvim',
-    lazy = false,
+    lazy = true,
+    event = 'CursorMoved',
     config = function()
       require('hl_match_area').setup {
         highlight_in_insert_mode = true, -- should highlighting also be done in insert mode
@@ -376,7 +390,8 @@ return {
   },
   {
     'asiryk/auto-hlsearch.nvim',
-    lazy = false,
+    lazy = true,
+    event = "CmdlineEnter",
     config = function()
       require('auto-hlsearch').setup()
     end,
@@ -624,4 +639,24 @@ return {
     lazy = true,
     cmd = "Git"
   },
+  {
+    "folke/trouble.nvim",
+    lazy = true,
+    cmd = {
+      "TroubleToggle",
+      "Trouble",
+      "TroubleClose",
+      "TroubleRefresh",
+    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
+    'justinmk/vim-sneak',
+    lazy = false,
+  }
 }
