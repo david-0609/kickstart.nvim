@@ -49,14 +49,32 @@ return {
       transparent = true
     },
   },
-  { 'nvim-tree/nvim-tree.lua' },
+  {
+    'nvim-tree/nvim-tree.lua',
+    lazy = true,
+    cmd = 'NvimTreeToggle',
+    config = function()
+      require('nvim-tree').setup {
+        sort_by = "case_sensitive",
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = true,
+        },
+      }
+    end
+  },
   {
     'akinsho/toggleterm.nvim',
     lazy = true,
     keys = {
       {
         "<c-t>",
-        function ()
+        function()
           require('toggleterm').toggle()
         end
       }
@@ -320,7 +338,7 @@ return {
   {
     'gen740/SmoothCursor.nvim',
     lazy = true,
-    event = 'BufEnter',
+    event = 'CursorMoved',
     config = function()
       require('smoothcursor').setup()
     end,
@@ -353,7 +371,7 @@ return {
       codewindow.apply_default_keybinds()
     end,
   },
-  { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
+  { 'sitiom/nvim-numbertoggle',   lazy = true, event = 'BufRead' },
   {
     'gnikdroy/projections.nvim',
     lazy = true,
@@ -370,17 +388,6 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('treesj').setup { --[[ your config ]]
-      }
-    end,
-  },
-  {
-    'rareitems/hl_match_area.nvim',
-    lazy = true,
-    event = 'CursorMoved',
-    config = function()
-      require('hl_match_area').setup {
-        highlight_in_insert_mode = true, -- should highlighting also be done in insert mode
-        delay = 100,                     -- delay before the highglight
       }
     end,
   },
@@ -446,7 +453,7 @@ return {
   {
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VeryLazy',
+    event = 'BufRead',
     config = function()
       require('nvim-surround').setup {
         -- Configuration here, or leave empty to use defaults
@@ -658,5 +665,13 @@ return {
   {
     'justinmk/vim-sneak',
     lazy = false,
+  },
+  {
+    'rareitems/hl_match_area.nvim',
+    lazy = true,
+    event = 'BufRead',
+    config = function()
+      require('hl_match_area').setup({})
+    end,
   }
 }

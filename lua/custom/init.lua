@@ -10,18 +10,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- OR setup with some options
-require('nvim-tree').setup {
-  sort_by = 'case_sensitive',
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-}
 --
 -- Define the function you want to run
 function special_highlights()
@@ -111,6 +99,12 @@ local projections_loaded = false
 function lazy_load_projections()
   if not projections_loaded then
     require('projections').setup {
+      store_hooks = {
+        pre = function()
+          local nvim_tree_present, api = pcall(require, "nvim-tree.api")
+          if nvim_tree_present then api.tree.close() end
+        end
+      },
       workspaces = { -- Default workspaces to search for
         -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
         { '~/Documents/dev', { '.git', 'Cargo.toml' } },
@@ -121,27 +115,19 @@ function lazy_load_projections()
 
     -- Bind <leader>fp to Telescope projections
     require('telescope').load_extension 'projections'
-    -- vim.keymap.set('n', '<leader>fp', function()
-    --   vim.cmd 'Telescope projections'
-    -- end)
 
-    -- Autostore session on VimExit
-    -- local Session = require 'projections.session'
-    -- vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
-    --   callback = function()
-    --     Session.store(vim.loop.cwd())
-    --   end,
-    -- })
+    local Session = require("projections.session")
+    vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
+      callback = function() Session.store(vim.loop.cwd()) end,
+    })
 
     -- Switch to project if vim was started in a project dir
-    -- local switcher = require 'projections.switcher'
-    -- vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-    --   callback = function()
-    --     if vim.fn.argc() == 0 then
-    --       switcher.switch(vim.loop.cwd())
-    --     end
-    --   end,
-    -- })
+    local switcher = require("projections.switcher")
+    vim.api.nvim_create_autocmd({ "VimEnter" }, {
+      callback = function()
+        if vim.fn.argc() == 0 then switcher.switch(vim.loop.cwd()) end
+      end,
+    })
 
     projections_loaded = true
 
