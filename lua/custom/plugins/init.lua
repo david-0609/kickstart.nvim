@@ -292,7 +292,7 @@ return {
     lazy = true,
     event = 'BufEnter',
     config = function()
-      require('mini.cursorword').setup()
+      -- require('mini.cursorword').setup()
       require('mini.move').setup()
     end,
   },
@@ -673,5 +673,13 @@ return {
     config = function()
       require('hl_match_area').setup({})
     end,
+  },
+  {
+    "RRethy/vim-illuminate",
+    lazy = true,
+    event = "CursorMoved",
+    config = function()
+      require('illuminate').configure()
+    end
   }
 }
