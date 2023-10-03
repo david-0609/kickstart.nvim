@@ -14,7 +14,7 @@ local function button(sc, txt, keybind)
     cursor = 5,
     width = 36,
     align_shortcut = 'right',
-    hl = 'NavicIconsKey',
+    hl = 'AerialConstructorIcon',
   }
 
   if keybind then

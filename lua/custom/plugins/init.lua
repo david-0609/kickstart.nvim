@@ -224,7 +224,7 @@ return {
   {
     'iamcco/markdown-preview.nvim',
     lazy = true,
-    run = function()
+    build = function()
       vim.fn['mkdp#util#install']()
     end,
     ft = {
@@ -283,8 +283,8 @@ return {
       -- functions to recalculate list on edit
       vim.keymap.set('n', '>>', '>><cmd>AutolistRecalculate<cr>')
       vim.keymap.set('n', '<<', '<<<cmd>AutolistRecalculate<cr>')
-      vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>')
-      vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>')
+      -- vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>')
+      -- vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>')
     end,
   },
   {
@@ -572,6 +572,21 @@ return {
     event = 'VeryLazy',
     opts = {
       -- add any options here
+      lsp = {
+        progress = {
+          enabled = false
+        },
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+        presets = {
+          command_palette = true
+        }
+      },
+      -- you can enable a preset for easier configuration
     },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries

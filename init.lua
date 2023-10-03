@@ -88,12 +88,20 @@ require('lazy').setup({
       {
         'j-hui/fidget.nvim',
         tag = 'legacy',
-        opts = {
-          timer = {
-            fidget_decay = 1000,
-            task_decay = 500,
-          }
-        },
+        config = function()
+          require('fidget').setup({
+            timer = {
+              spinner_rate = 125,  -- frame rate of spinner animation, in ms
+              fidget_decay = 1000, -- how long to keep around empty fidget, in ms
+              task_decay = 500,    -- how long to keep around completed task, in ms
+            },
+            sources = {
+              ltex = {
+                ignore = true
+              }
+            }
+          })
+        end
       },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -139,8 +147,8 @@ require('lazy').setup({
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
-      -- See `:help gitsigns.txt`
       signs = {
+        -- See `:help gitsigns.txt`
         add = { text = '+' },
         change = { text = '~' },
         delete = { text = '_' },
@@ -179,14 +187,14 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    lazy = true,
-    event = 'BufRead',
+    main = "ibl",
+    opts = {
+      indent = {
+        char = '┊',
+      }
+    }
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
   },
 
   -- "gc" to comment visual regions/lines
