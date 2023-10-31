@@ -28,13 +28,17 @@ return {
   },
   {
     'romgrk/barbar.nvim',
-    lazy = true,
+    lazy = false,
     dependencies = {
       'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
+
+      auto_hide = 1,
+
+      -- exclude_ft = { 'alpha' },
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
       -- insert_at_start = true,
@@ -697,5 +701,31 @@ return {
     config = function()
       require('illuminate').configure()
     end
-  }
+  },
+  {
+    'eandrju/cellular-automaton.nvim',
+    lazy = true,
+    cmd = "CellularAutomaton",
+  },
+  -- {
+  --   'nvimdev/dashboard-nvim',
+  --   lazy = false,
+  --   requires = { 'nvim-tree/nvim-web-devicons' },
+  --   -- priority = 10000,
+  --   -- event = 'VimEnter',
+  --   config = function()
+  --     require('dashboard').setup {
+  --       -- config
+  --       config = {
+  --         week_header = {
+  --           enable = true,
+  --         }
+  --       },
+  --       hide = {
+  --         tabline = true
+  --       }
+  --     }
+  --   end,
+  --   dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  -- }
 }
