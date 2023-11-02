@@ -40,6 +40,7 @@ function lazy_load_presence()
     neovim_image_text = 'The One True Text Editor', -- Text displayed when hovered over the Neovim image
     main_image = 'neovim',                          -- Main image display (either "neovim" or "file")
     client_id = '793271441293967371',               -- Use your own Discord application client id (not recommended)
+    -- client_id = '1138544477070442599',
     log_level = nil,                                -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
     debounce_timeout = 10,                          -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
     enable_line_number = false,                     -- Displays the current line number instead of the current project
@@ -75,26 +76,26 @@ end
 
 vim.cmd 'command! PetsEnable lua lazy_load_pets()'
 
-require('mason-lspconfig').setup {
-  ensure_installed = {
-    -- lua stuff
-    'lua_ls',
-
-    -- web dev stuff
-    'cssls',
-    'html',
-    'denols',
-    'dockerls',
-    'texlab',
-    'ltex',
-    'pyright',
-    'marksman',
-    'tailwindcss',
-    'rust_analyzer',
-    'zls',
-  },
-}
-
+-- require('mason-lspconfig').setup {
+--   ensure_installed = {
+--     -- lua stuff
+--     'lua_ls',
+--
+--     -- web dev stuff
+--     'cssls',
+--     'html',
+--     'denols',
+--     'dockerls',
+--     'texlab',
+--     'ltex',
+--     'pyright',
+--     'marksman',
+--     'tailwindcss',
+--     -- 'rust_analyzer',
+--     'zls',
+--   },
+-- }
+--
 local projections_loaded = false
 function lazy_load_projections()
   if not projections_loaded then
@@ -156,35 +157,33 @@ vim.keymap.set('i', '<CR>', function()
   return require('nvim-autopairs').autopairs_cr()
 end, { expr = true, noremap = true })
 
-local function load_rust_tools()
-  local rt = require 'rust-tools'
+local rt = require 'rust-tools'
 
-  rt.setup {
-    settings = {
-      ['rust-analyzer'] = {
-        inlayHints = { locationLinks = false },
-        checkOnSave = {
-          command = 'clippy',
-        },
+rt.setup {
+  settings = {
+    ['rust-analyzer'] = {
+      inlayHints = { locationLinks = false },
+      checkOnSave = {
+        command = 'clippy',
       },
     },
+  },
 
-    server = {
-      on_attach = function(_, bufnr)
-        -- Hover actions
-        vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
-        -- Code action groups
-        vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
-      end,
-    },
-  }
-end
-
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = 'rust',
-  callback = load_rust_tools
-})
-
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+}
+--
+-- vim.api.nvim_create_autocmd({ 'FileType' }, {
+--   pattern = 'rust',
+--   callback = load_rust_tools
+-- })
+--
 local rainbow_delimiters = require 'rainbow-delimiters'
 
 vim.g.rainbow_delimiters = {

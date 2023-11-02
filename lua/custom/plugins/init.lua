@@ -348,8 +348,16 @@ return {
       require('smoothcursor').setup()
     end,
   },
-  { 'sindrets/diffview.nvim',   lazy = true,             event = 'BufRead' },
-  { 'simrat39/rust-tools.nvim', after = 'nvim-lspconfig' },
+  {
+    'sindrets/diffview.nvim',
+    lazy = true,
+    event = 'BufRead',
+  },
+  {
+    'simrat39/rust-tools.nvim',
+    lazy = true,
+    after = 'nvim-lspconfig',
+  },
   {
     'm-demare/hlargs.nvim',
     lazy = true,
@@ -376,7 +384,7 @@ return {
       codewindow.apply_default_keybinds()
     end,
   },
-  { 'sitiom/nvim-numbertoggle',   lazy = true, event = 'BufRead' },
+  { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
   {
     'gnikdroy/projections.nvim',
     lazy = true,
@@ -707,6 +715,11 @@ return {
     lazy = true,
     cmd = "CellularAutomaton",
   },
+  {
+    'ThePrimeagen/vim-be-good',
+    lazy = true,
+    cmd = "VimBeGood"
+  }
   -- {
   --   'nvimdev/dashboard-nvim',
   --   lazy = false,

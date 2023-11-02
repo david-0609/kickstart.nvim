@@ -5,7 +5,6 @@ return {
       telemetry = { enable = false },
     },
   },
-  stylua = {},
   ltex = {
     ltex = {
       language = 'en-GB',

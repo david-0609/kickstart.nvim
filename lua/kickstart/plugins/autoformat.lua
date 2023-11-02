@@ -63,6 +63,7 @@ return {
             vim.lsp.buf.format {
               async = false,
               filter = function(c)
+                -- return c.name ~= "lua_ls"
                 return c.id == client.id
               end,
             }
