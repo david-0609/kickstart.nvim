@@ -156,28 +156,28 @@ vim.keymap.set('i', '<CR>', function()
 
   return require('nvim-autopairs').autopairs_cr()
 end, { expr = true, noremap = true })
-
-local rt = require 'rust-tools'
-
-rt.setup {
-  settings = {
-    ['rust-analyzer'] = {
-      inlayHints = { locationLinks = false },
-      checkOnSave = {
-        command = 'clippy',
-      },
-    },
-  },
-
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-}
+--
+-- local rt = require 'rust-tools'
+--
+-- rt.setup {
+--   settings = {
+--     ['rust-analyzer'] = {
+--       inlayHints = { locationLinks = false },
+--       checkOnSave = {
+--         command = 'clippy',
+--       },
+--     },
+--   },
+--
+--   server = {
+--     on_attach = function(_, bufnr)
+--       -- Hover actions
+--       vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+--       -- Code action groups
+--       vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
+--     end,
+--   },
+-- }
 --
 -- vim.api.nvim_create_autocmd({ 'FileType' }, {
 --   pattern = 'rust',
@@ -245,9 +245,9 @@ vim.g.codeium_disable_bindings = 1
 --     end
 --   end
 -- end
-
+--
 -- vim.cmd 'autocmd VimEnter * lua lazy_load_barbar()'
-
+--
 vim.cmd [[
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F

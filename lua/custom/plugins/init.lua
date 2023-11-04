@@ -28,7 +28,8 @@ return {
   },
   {
     'romgrk/barbar.nvim',
-    lazy = false,
+    lazy = true,
+    event = 'BufRead',
     dependencies = {
       'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
@@ -38,7 +39,7 @@ return {
 
       auto_hide = 1,
 
-      -- exclude_ft = { 'alpha' },
+      exclude_ft = { 'alpha' },
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
       -- insert_at_start = true,
@@ -345,7 +346,7 @@ return {
     lazy = true,
     event = 'CursorMoved',
     config = function()
-      require('smoothcursor').setup()
+      require('smoothcursor').setup({})
     end,
   },
   {
@@ -357,6 +358,29 @@ return {
     'simrat39/rust-tools.nvim',
     lazy = true,
     after = 'nvim-lspconfig',
+    ft = { "rust", "toml" },
+    config = function()
+      require("rust-tools").setup {
+
+        settings = {
+          ['rust-analyzer'] = {
+            inlayHints = { locationLinks = false },
+            checkOnSave = {
+              command = 'clippy',
+            },
+          },
+        },
+
+        server = {
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
+          end,
+        },
+      }
+    end
   },
   {
     'm-demare/hlargs.nvim',
