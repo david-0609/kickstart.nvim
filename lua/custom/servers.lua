@@ -7,6 +7,7 @@ return {
   },
   ltex = {
     ltex = {
+      checkFrequency = "edit",
       language = 'en-GB',
       disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } },
     },

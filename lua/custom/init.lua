@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 --
 
 vim.cmd [[colorscheme tokyonight-night]]
@@ -70,8 +71,14 @@ end
 -- -- Use the autocmd command to run the function when the buffer is of a specific file type
 -- vim.cmd([[autocmd FileType c,cpp,c_sharp,go,java,javascript,lua,julia,jsx,nix,php,python,r,ruby,rust,tsx,typescript,vim,zig lua load_hlargs()]])
 --
+--
+vim.cmd([[autocmd FileType latex,tex,plaintex,markdown set wrap linebreak]])
 function lazy_load_pets()
-  require('pets').setup()
+  require('pets').setup({
+    popup = {
+      avoid_statusline = true
+    }
+  })
 end
 
 vim.cmd 'command! PetsEnable lua lazy_load_pets()'
@@ -109,7 +116,7 @@ function lazy_load_projections()
       workspaces = { -- Default workspaces to search for
         -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
         { '~/Documents/dev', { '.git', 'Cargo.toml' } },
-        { '~/.config',       { '.git', 'init.lua', 'nvim' } },
+        { '~/.config',       { '.git', 'nvim' } },
         -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
       },
     }
@@ -123,12 +130,12 @@ function lazy_load_projections()
     })
 
     -- Switch to project if vim was started in a project dir
-    local switcher = require("projections.switcher")
-    vim.api.nvim_create_autocmd({ "VimEnter" }, {
-      callback = function()
-        if vim.fn.argc() == 0 then switcher.switch(vim.loop.cwd()) end
-      end,
-    })
+    -- local switcher = require("projections.switcher")
+    -- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    --   callback = function()
+    --     if vim.fn.argc() == 0 then switcher.switch(vim.loop.cwd()) end
+    --   end,
+    -- })
 
     projections_loaded = true
 

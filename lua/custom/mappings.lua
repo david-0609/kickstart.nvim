@@ -45,7 +45,7 @@ map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 map('n', '<leader>te', '<cmd>NvimTreeToggle<cr>', { noremap = true, silent = true })
 map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { noremap = true, silent = true })
 
-map('n', '<leader>wp', '<cmd> ToggleWrapMode <cr>', { noremap = true, silent = true })
+-- map('n', '<leader>wp', '<cmd> ToggleWrapMode <cr>', { noremap = true, silent = true })
 map('n', '<leader>uu', '<cmd> Lazy sync <cr>', { noremap = true, silent = true })
 
 map('n', '<leader>bb', '<cmd> Navbuddy <cr>', { noremap = true, silent = true })
@@ -76,3 +76,4 @@ vim.keymap.set("n", "<leader>xd", function() require("trouble").open("document_d
 vim.keymap.set("n", "<leader>xq", function() require("trouble").open("quickfix") end)
 vim.keymap.set("n", "<leader>xl", function() require("trouble").open("loclist") end)
 vim.keymap.set("n", "gR", function() require("trouble").open("lsp_references") end)
+

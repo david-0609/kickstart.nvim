@@ -218,7 +218,7 @@ return {
   {
     'phaazon/mind.nvim',
     lazy = true,
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
     },
     branch = 'v2.2',
@@ -245,7 +245,7 @@ return {
     'Djancyp/better-comments.nvim',
     lazy = true,
     event = 'BufRead',
-    run = function()
+    build = function()
       require('better-comment').Setup()
     end,
   },
@@ -346,7 +346,8 @@ return {
     lazy = true,
     event = 'CursorMoved',
     config = function()
-      require('smoothcursor').setup({})
+      ---@diagnostic disable-next-line: missing-fields, missing-parameter
+      require('smoothcursor').setup()
     end,
   },
   {
@@ -357,7 +358,7 @@ return {
   {
     'simrat39/rust-tools.nvim',
     lazy = true,
-    after = 'nvim-lspconfig',
+    -- dependencies = 'nvim-lspconfig',
     ft = { "rust", "toml" },
     config = function()
       require("rust-tools").setup {
@@ -374,9 +375,10 @@ return {
         server = {
           on_attach = function(_, bufnr)
             -- Hover actions
-            vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+            vim.keymap.set('n', '<leader>ha', require('rust-tools').hover_actions.hover_actions, { buffer = bufnr })
             -- Code action groups
-            vim.keymap.set('n', '<leader>ca', rt.code_action_group.code_action_group, { buffer = bufnr })
+            vim.keymap.set('n', '<leader>ca', require('rust-tools').code_action_group.code_action_group,
+              { buffer = bufnr })
           end,
         },
       }
@@ -390,23 +392,56 @@ return {
     -- end
   },
   {
-    'lervag/vimtex',
+    "lervag/vimtex", -- LaTeX completion/tooling
     lazy = true,
-    ft = {
-      'tex',
-      'plaintex',
-      'texinfo',
-    }
+    init = function()
+      vim.g.vimtex_compiler_progname = "nvr"
+      vim.g.tex_flavor = "latex"
+      vim.g.vimtex_quickfix_mode = false
+      vim.g.vimtex_syntax_enabled = false
+      vim.g.vimtex_syntax_conceal_disable = true
+      vim.g.vimtex_fold_enabled = true
+      vim.g.vimtex_view_general_viewer = "okular"
+      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
+      vim.o.fillchars = vim.o.fillchars .. "fold: ,"
+      -- vim.g.vimtex_matchparen_enabled = 0
+    end,
+    ft = { "tex", "plaintex", "latex" },
   },
   {
     'gorbit99/codewindow.nvim',
     lazy = true,
-    event = 'BufRead',
     config = function()
       local codewindow = require 'codewindow'
       codewindow.setup()
-      codewindow.apply_default_keybinds()
     end,
+    keys = {
+      {
+        '<leader>mo',
+        function()
+          require('codewindow').open_minimap()
+        end
+      },
+      {
+        '<leader>mc',
+        function()
+          require('codewindow').close_minimap()
+        end
+      },
+      {
+        '<leader>mf',
+        function()
+          require('codewindow').toggle_focus()
+        end
+      },
+      {
+        '<leader>mm',
+        function()
+          require('codewindow').toggle_minimap()
+        end
+      },
+
+    }
   },
   { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
   {
@@ -440,14 +475,17 @@ return {
       require('auto-hlsearch').setup()
     end,
   },
-  {
-    'andrewferrier/wrapping.nvim',
-    lazy = true,
-    cmd = 'ToggleWrapMode',
-    config = function()
-      require('wrapping').setup()
-    end,
-  },
+  -- {
+  --   'andrewferrier/wrapping.nvim',
+  --   lazy = true,
+  --   cmd = 'ToggleWrapMode',
+  --   config = function()
+  --     require('wrapping').setup({
+  --       set_nvim_opt_defaults = false,
+  --       auto_set_mode_heuristically = false,
+  --     })
+  --   end,
+  -- },
   {
     'roobert/tailwindcss-colorizer-cmp.nvim',
     lazy = true,
@@ -475,9 +513,9 @@ return {
     'giusgad/pets.nvim',
     lazy = true,
     dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
-    config = function()
-      require('pets').setup()
-    end,
+    -- config = function()
+    --   require('pets').setup()
+    -- end,
   },
   {
     'L3MON4D3/LuaSnip',
@@ -485,7 +523,7 @@ return {
     event = "InsertEnter",
     version = '1.*',
     build = 'make install_jsregexp',
-    requires = { 'rafamadriz/friendly-snippets', 'molleweide/LuaSnip-snippets.nvim' },
+    dependencies = { 'rafamadriz/friendly-snippets', 'molleweide/LuaSnip-snippets.nvim' },
   },
   {
     'kylechui/nvim-surround',
@@ -500,7 +538,7 @@ return {
   {
     'goolord/alpha-nvim',
     lazy = false,
-    requires = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require 'custom.plugins.configs.alpha'
     end,
@@ -519,7 +557,7 @@ return {
     lazy = true,
     ft = 'toml',
     tag = 'v0.3.0',
-    requires = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('crates').setup()
     end,
@@ -528,7 +566,7 @@ return {
     'wintermute-cell/gitignore.nvim',
     lazy = true,
     cmd = 'Gitignore',
-    requires = {
+    dependencies = {
       'nvim-telescope/telescope.nvim',
     },
   },
@@ -554,25 +592,6 @@ return {
     lazy = true,
     event = 'BufRead',
   },
-  -- {
-  --   'HiPhish/nvim-ts-rainbow2',
-  --   lazy = true,
-  --   event = 'BufRead',
-  --   dependencies = 'nvim-treesitter',
-  --   config = function()
-  --     require('nvim-treesitter.configs').setup {
-  --       rainbow = {
-  --         enable = true,
-  --         -- list of languages you want to disable the plugin for
-  --         disable = { 'jsx', 'cpp' },
-  --         -- Which query to use for finding delimiters
-  --         query = 'rainbow-parens',
-  --         -- Highlight the entire buffer all at once
-  --         strategy = require('ts-rainbow').strategy.global,
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     'HiPhish/rainbow-delimiters.nvim',
     lazy = true,
@@ -653,13 +672,13 @@ return {
         langauge = "py"
       })
     end,
-    keys = {
-      { "<leader>lq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
-      { "<leader>ll", "<cmd>LBQuestion<cr>",  desc = "View Question" },
-      { "<leader>lr", "<cmd>LBReset<cr>",     desc = "Reset Code" },
-      { "<leader>lt", "<cmd>LBTest<cr>",      desc = "Run Code" },
-      { "<leader>ls", "<cmd>LBSubmit<cr>",    desc = "Submit Code" },
-    },
+    -- keys = {
+    --   { "<leader>lq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
+    --   { "<leader>ll", "<cmd>LBQuestion<cr>",  desc = "View Question" },
+    --   { "<leader>lr", "<cmd>LBReset<cr>",     desc = "Reset Code" },
+    --   { "<leader>lt", "<cmd>LBTest<cr>",      desc = "Run Code" },
+    --   { "<leader>ls", "<cmd>LBSubmit<cr>",    desc = "Submit Code" },
+    -- },
   },
   {
     'mrjones2014/legendary.nvim',
@@ -743,7 +762,7 @@ return {
     'ThePrimeagen/vim-be-good',
     lazy = true,
     cmd = "VimBeGood"
-  }
+  },
   -- {
   --   'nvimdev/dashboard-nvim',
   --   lazy = false,
