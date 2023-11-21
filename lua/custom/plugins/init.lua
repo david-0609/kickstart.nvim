@@ -245,7 +245,7 @@ return {
     'Djancyp/better-comments.nvim',
     lazy = true,
     event = 'BufRead',
-    build = function()
+    config = function()
       require('better-comment').Setup()
     end,
   },
@@ -307,6 +307,7 @@ return {
     lazy = true,
     cmd = 'GitConflict',
     config = function()
+---@diagnostic disable-next-line: missing-parameter
       require('git-conflict').setup()
     end,
   },
@@ -394,7 +395,7 @@ return {
   {
     "lervag/vimtex", -- LaTeX completion/tooling
     lazy = true,
-    init = function()
+    config = function()
       vim.g.vimtex_compiler_progname = "nvr"
       vim.g.tex_flavor = "latex"
       vim.g.vimtex_quickfix_mode = false
@@ -763,25 +764,8 @@ return {
     lazy = true,
     cmd = "VimBeGood"
   },
-  -- {
-  --   'nvimdev/dashboard-nvim',
-  --   lazy = false,
-  --   requires = { 'nvim-tree/nvim-web-devicons' },
-  --   -- priority = 10000,
-  --   -- event = 'VimEnter',
-  --   config = function()
-  --     require('dashboard').setup {
-  --       -- config
-  --       config = {
-  --         week_header = {
-  --           enable = true,
-  --         }
-  --       },
-  --       hide = {
-  --         tabline = true
-  --       }
-  --     }
-  --   end,
-  --   dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-  -- }
+  {
+    "barreiroleo/ltex_extra.nvim",
+    lazy = true
+  },
 }

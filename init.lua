@@ -491,6 +491,19 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+require("lspconfig")["ltex"].setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    -- rest of your on_attach process.
+    require("ltex_extra").setup {
+      load_langs = { "en-GB" },
+    }
+  end,
+  settings = {
+    ltex = { language = "en-GB", disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } }, dictionary = { ["en-GB"] = ":~/Documents/ltex-ls-dictionary.txt" } }
+  }
+}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 

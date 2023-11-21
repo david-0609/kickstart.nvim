@@ -236,7 +236,6 @@ vim.g.rainbow_delimiters = {
 --   },
 -- })
 --
-vim.g.codeium_disable_bindings = 1
 --
 -- local barbar_loaded = false
 -- function lazy_load_barbar()
@@ -261,3 +260,12 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 ]]
+
+vim.g.codeium_filetypes = {
+  ['latex'] = false,
+  ['tex'] = false,
+  ['plaintex'] = false,
+  ['markdown'] = false,
+}
+
+vim.g.codeium_disable_bindings = 1

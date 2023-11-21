@@ -5,13 +5,6 @@ return {
       telemetry = { enable = false },
     },
   },
-  ltex = {
-    ltex = {
-      checkFrequency = "edit",
-      language = 'en-GB',
-      disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } },
-    },
-  },
   pyright = {},
   tailwindcss = {},
   zls = {},
@@ -20,6 +13,7 @@ return {
   html = {},
   vimls = {},
   marksman = {},
+  texlab = {},
   gopls = {
     experimentalPostfixCompletions = true,
     analyses = {

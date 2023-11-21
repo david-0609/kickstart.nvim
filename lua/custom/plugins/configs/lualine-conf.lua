@@ -43,7 +43,7 @@ require('lualine').setup {
         path = 0,
       },
     },
-    lualine_x = { nvimbattery, 'encoding', 'fileformat', 'filetype' },
+    lualine_x = { nvimbattery, 'encoding', 'fileformat', 'filetype'},
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
