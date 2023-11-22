@@ -31,10 +31,12 @@ return {
     lazy = true,
     event = 'BufRead',
     dependencies = {
-      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    init = function() vim.g.barbar_auto_setup = false end,
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
     opts = {
 
       auto_hide = 1,
@@ -52,7 +54,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      transparent = true
+      transparent = true,
     },
   },
   {
@@ -61,7 +63,7 @@ return {
     cmd = 'NvimTreeToggle',
     config = function()
       require('nvim-tree').setup {
-        sort_by = "case_sensitive",
+        sort_by = 'case_sensitive',
         view = {
           width = 30,
         },
@@ -72,18 +74,18 @@ return {
           dotfiles = true,
         },
       }
-    end
+    end,
   },
   {
     'akinsho/toggleterm.nvim',
     lazy = true,
     keys = {
       {
-        "<c-t>",
+        '<c-t>',
         function()
           require('toggleterm').toggle()
-        end
-      }
+        end,
+      },
     },
     version = '*',
     config = function()
@@ -145,7 +147,7 @@ return {
         function()
           require('goto-preview').close_all_win()
         end,
-      }
+      },
     },
     config = function()
       require('goto-preview').setup {
@@ -175,7 +177,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     lazy = true,
-    cmd = "Gitsigns",
+    cmd = 'Gitsigns',
     config = function()
       require('gitsigns').setup()
     end,
@@ -307,7 +309,7 @@ return {
     lazy = true,
     cmd = 'GitConflict',
     config = function()
----@diagnostic disable-next-line: missing-parameter
+      ---@diagnostic disable-next-line: missing-parameter
       require('git-conflict').setup()
     end,
   },
@@ -319,20 +321,20 @@ return {
       require('colorizer').setup {
         filetypes = { '*' },
         user_default_options = {
-          RGB = true,          -- #RGB hex codes
-          RRGGBB = true,       -- #RRGGBB hex codes
-          names = true,        -- "Name" codes like Blue or blue
-          RRGGBBAA = false,    -- #RRGGBBAA hex codes
-          AARRGGBB = false,    -- 0xAARRGGBB hex codes
-          rgb_fn = false,      -- CSS rgb() and rgba() functions
-          hsl_fn = false,      -- CSS hsl() and hsla() functions
-          css = true,          -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-          css_fn = true,       -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          RGB = true, -- #RGB hex codes
+          RRGGBB = true, -- #RRGGBB hex codes
+          names = true, -- "Name" codes like Blue or blue
+          RRGGBBAA = false, -- #RRGGBBAA hex codes
+          AARRGGBB = false, -- 0xAARRGGBB hex codes
+          rgb_fn = false, -- CSS rgb() and rgba() functions
+          hsl_fn = false, -- CSS hsl() and hsla() functions
+          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
           -- Available modes for `mode`: foreground, background,  virtualtext
           mode = 'background', -- Set the display mode.
           -- Available methods are false / true / "normal" / "lsp" / "both"
           -- True is same as normal
-          tailwind = true,                                -- Enable tailwind colors
+          tailwind = true, -- Enable tailwind colors
           -- parsers can contain values used in |user_default_options|
           sass = { enable = false, parsers = { 'css' } }, -- Enable sass colors
           virtualtext = '■',
@@ -360,9 +362,9 @@ return {
     'simrat39/rust-tools.nvim',
     lazy = true,
     -- dependencies = 'nvim-lspconfig',
-    ft = { "rust", "toml" },
+    ft = { 'rust', 'toml' },
     config = function()
-      require("rust-tools").setup {
+      require('rust-tools').setup {
 
         settings = {
           ['rust-analyzer'] = {
@@ -378,12 +380,11 @@ return {
             -- Hover actions
             vim.keymap.set('n', '<leader>ha', require('rust-tools').hover_actions.hover_actions, { buffer = bufnr })
             -- Code action groups
-            vim.keymap.set('n', '<leader>ca', require('rust-tools').code_action_group.code_action_group,
-              { buffer = bufnr })
+            vim.keymap.set('n', '<leader>ca', require('rust-tools').code_action_group.code_action_group, { buffer = bufnr })
           end,
         },
       }
-    end
+    end,
   },
   {
     'm-demare/hlargs.nvim',
@@ -393,21 +394,21 @@ return {
     -- end
   },
   {
-    "lervag/vimtex", -- LaTeX completion/tooling
+    'lervag/vimtex', -- LaTeX completion/tooling
     lazy = true,
     config = function()
-      vim.g.vimtex_compiler_progname = "nvr"
-      vim.g.tex_flavor = "latex"
+      vim.g.vimtex_compiler_progname = 'nvr'
+      vim.g.tex_flavor = 'latex'
       vim.g.vimtex_quickfix_mode = false
       vim.g.vimtex_syntax_enabled = false
       vim.g.vimtex_syntax_conceal_disable = true
       vim.g.vimtex_fold_enabled = true
-      vim.g.vimtex_view_general_viewer = "okular"
-      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
-      vim.o.fillchars = vim.o.fillchars .. "fold: ,"
+      vim.g.vimtex_view_general_viewer = 'okular'
+      vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+      vim.o.fillchars = vim.o.fillchars .. 'fold: ,'
       -- vim.g.vimtex_matchparen_enabled = 0
     end,
-    ft = { "tex", "plaintex", "latex" },
+    ft = { 'tex', 'plaintex', 'latex' },
   },
   {
     'gorbit99/codewindow.nvim',
@@ -421,28 +422,27 @@ return {
         '<leader>mo',
         function()
           require('codewindow').open_minimap()
-        end
+        end,
       },
       {
         '<leader>mc',
         function()
           require('codewindow').close_minimap()
-        end
+        end,
       },
       {
         '<leader>mf',
         function()
           require('codewindow').toggle_focus()
-        end
+        end,
       },
       {
         '<leader>mm',
         function()
           require('codewindow').toggle_minimap()
-        end
+        end,
       },
-
-    }
+    },
   },
   { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
   {
@@ -453,7 +453,7 @@ return {
   {
     'nullchilly/fsread.nvim',
     lazy = true,
-    cmd = "FSToggle"
+    cmd = 'FSToggle',
   },
   {
     'Wansmer/treesj',
@@ -471,7 +471,7 @@ return {
   {
     'asiryk/auto-hlsearch.nvim',
     lazy = true,
-    event = "CmdlineEnter",
+    event = 'CmdlineEnter',
     config = function()
       require('auto-hlsearch').setup()
     end,
@@ -521,7 +521,7 @@ return {
   {
     'L3MON4D3/LuaSnip',
     lazy = true,
-    event = "InsertEnter",
+    event = 'InsertEnter',
     version = '1.*',
     build = 'make install_jsregexp',
     dependencies = { 'rafamadriz/friendly-snippets', 'molleweide/LuaSnip-snippets.nvim' },
@@ -605,14 +605,22 @@ return {
   {
     'Exafunction/codeium.vim',
     lazy = true,
-    event = "InsertEnter",
+    event = 'InsertEnter',
     config = function()
       -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-    end
+      vim.keymap.set('i', '<C-g>', function()
+        return vim.fn['codeium#Accept']()
+      end, { expr = true })
+      vim.keymap.set('i', '<c-;>', function()
+        return vim.fn['codeium#CycleCompletions'](1)
+      end, { expr = true })
+      vim.keymap.set('i', '<c-,>', function()
+        return vim.fn['codeium#CycleCompletions'](-1)
+      end, { expr = true })
+      vim.keymap.set('i', '<c-x>', function()
+        return vim.fn['codeium#Clear']()
+      end, { expr = true })
+    end,
   },
   {
     'tzachar/highlight-undo.nvim',
@@ -630,17 +638,17 @@ return {
       -- add any options here
       lsp = {
         progress = {
-          enabled = false
+          enabled = false,
         },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
         },
         presets = {
-          command_palette = true
-        }
+          command_palette = true,
+        },
       },
       -- you can enable a preset for easier configuration
     },
@@ -654,24 +662,24 @@ return {
     },
   },
   {
-    "Dhanus3133/LeetBuddy.nvim",
+    'Dhanus3133/LeetBuddy.nvim',
     lazy = true,
     cmd = {
-      "LBQuestions",
-      "LBQuestion",
-      "LBReset",
-      "LBTest",
-      "LBSubmit",
+      'LBQuestions',
+      'LBQuestion',
+      'LBReset',
+      'LBTest',
+      'LBSubmit',
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
     },
     config = function()
-      require("leetbuddy").setup({
-        domain = "com",
-        langauge = "py"
-      })
+      require('leetbuddy').setup {
+        domain = 'com',
+        langauge = 'py',
+      }
     end,
     -- keys = {
     --   { "<leader>lq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
@@ -693,7 +701,7 @@ return {
     -- sqlite is only needed if you want to use frecency sorting
     -- dependencies = { 'kkharji/sqlite.lua' }
     config = function()
-      require('legendary').setup({
+      require('legendary').setup {
         which_key = {
           auto_register = true,
         },
@@ -705,9 +713,9 @@ return {
         extensions = {
           nvim_tree = true,
           smart_splits = {},
-        }
-      })
-    end
+        },
+      }
+    end,
   },
   {
     'stevearc/dressing.nvim',
@@ -716,18 +724,18 @@ return {
   {
     'tpope/vim-fugitive',
     lazy = true,
-    cmd = "Git"
+    cmd = 'Git',
   },
   {
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
     lazy = true,
     cmd = {
-      "TroubleToggle",
-      "Trouble",
-      "TroubleClose",
-      "TroubleRefresh",
+      'TroubleToggle',
+      'Trouble',
+      'TroubleClose',
+      'TroubleRefresh',
     },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -743,29 +751,79 @@ return {
     lazy = true,
     event = 'BufRead',
     config = function()
-      require('hl_match_area').setup({})
+      require('hl_match_area').setup {}
     end,
   },
   {
-    "RRethy/vim-illuminate",
+    'RRethy/vim-illuminate',
     lazy = true,
-    event = "CursorMoved",
+    event = 'CursorMoved',
     config = function()
       require('illuminate').configure()
-    end
+    end,
   },
   {
     'eandrju/cellular-automaton.nvim',
     lazy = true,
-    cmd = "CellularAutomaton",
+    cmd = 'CellularAutomaton',
   },
   {
     'ThePrimeagen/vim-be-good',
     lazy = true,
-    cmd = "VimBeGood"
+    cmd = 'VimBeGood',
   },
   {
-    "barreiroleo/ltex_extra.nvim",
-    lazy = true
+    'barreiroleo/ltex_extra.nvim',
+    lazy = true,
+  },
+  {
+    'hedyhli/outline.nvim',
+    lazy = true,
+    cmd = { 'Outline', 'OutlineOpen' },
+    keys = { -- Example mapping to toggle outline
+      { '<leader>tt', '<cmd>Outline<CR>', desc = 'Toggle outline' },
+    },
+    opts = {
+      -- Your setup opts here
+    },
+  },
+  {
+    'stevearc/conform.nvim',
+    lazy = true,
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        '<leader>fb',
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end,
+        mode = '',
+        desc = 'Format buffer',
+      },
+    },
+    -- Everything in opts will be passed to setup()
+    opts = {
+      -- Define your formatters
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        python = { 'isort', 'black' },
+        javascript = { { 'prettierd', 'prettier' } },
+        rust = { 'rustfmt' },
+      },
+      -- Set up format-on-save
+      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+      -- Customize formatters
+      formatters = {
+        shfmt = {
+          prepend_args = { '-i', '2' },
+        },
+      },
+    },
+    init = function()
+      -- If you want the formatexpr, here is the place to set it
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
   },
 }
