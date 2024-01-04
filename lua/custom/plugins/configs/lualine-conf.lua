@@ -15,7 +15,8 @@ local nvimbattery = {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'tokyonight',
+    -- theme = 'tokyonight',
+    theme = 'auto',
     -- component_separators = '|',
     -- section_separators = '',
     section_separators = { left = '', right = '' },
@@ -43,7 +44,7 @@ require('lualine').setup {
         path = 0,
       },
     },
-    lualine_x = { nvimbattery, 'encoding', 'fileformat', 'filetype'},
+    lualine_x = { nvimbattery, 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },

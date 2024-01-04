@@ -87,21 +87,28 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
-        tag = 'legacy',
         config = function()
-          require('fidget').setup({
-            timer = {
-              spinner_rate = 125,  -- frame rate of spinner animation, in ms
-              fidget_decay = 1000, -- how long to keep around empty fidget, in ms
-              task_decay = 500,    -- how long to keep around completed task, in ms
+          require('fidget').setup {
+            progress = {
+              ignore = { 'ltex' },
             },
-            sources = {
-              ltex = {
-                ignore = true
-              }
-            }
-          })
-        end
+          }
+        end,
+        -- tag = 'legacy',
+        -- config = function()
+        --   require('fidget').setup {
+        --     timer = {
+        --       spinner_rate = 125, -- frame rate of spinner animation, in ms
+        --       fidget_decay = 1000, -- how long to keep around empty fidget, in ms
+        --       task_decay = 500, -- how long to keep around completed task, in ms
+        --     },
+        --     sources = {
+        --       ltex = {
+        --         ignore = true,
+        --       },
+        --     },
+        --   }
+        -- end,
       },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -132,7 +139,7 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -141,7 +148,7 @@ require('lazy').setup({
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-    }
+    },
   },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -156,8 +163,7 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -189,21 +195,21 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     lazy = true,
     event = 'BufRead',
-    main = "ibl",
+    main = 'ibl',
     opts = {
       indent = {
         char = '┊',
       },
       exclude = {
         filetypes = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy' },
-      }
-    }
+      },
+    },
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',  opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -352,13 +358,25 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml', 'html',
-    'markdown' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml', 'html', 'markdown', 'latex' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true, },
+  highlight = {
+    enable = true,
+    disable = function(lang, buf)
+      local max_filesize = 100 * 1024 -- 100 KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+      -- if lang == 'tex' or lang == 'latex' then
+      -- return true
+      -- end
+    end,
+    additional_vim_regex_highlighting = false,
+  },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
@@ -466,7 +484,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = require "custom.servers"
+local servers = require 'custom.servers'
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -474,7 +492,7 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Ensure the servers above are installed
-local mason_lspconfig = require "mason-lspconfig"
+local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
@@ -491,17 +509,21 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require("lspconfig")["ltex"].setup {
+require('lspconfig')['ltex'].setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- rest of your on_attach process.
-    require("ltex_extra").setup {
-      load_langs = { "en-GB" },
+    require('ltex_extra').setup {
+      load_langs = { 'en-GB' },
+      path = '/home/david/Documents/ltex-ls',
     }
   end,
   settings = {
-    ltex = { language = "en-GB", disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } }, dictionary = { ["en-GB"] = ":~/Documents/ltex-ls-dictionary.txt" } }
-  }
+    ltex = {
+      language = 'en-GB',
+      disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } },
+    },
+  },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`

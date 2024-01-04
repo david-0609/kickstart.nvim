@@ -1,25 +1,24 @@
 return {
-
-  {
-    'bennypowers/splitjoin.nvim',
-    lazy = true,
-    keys = {
-      {
-        'gj',
-        function()
-          require('splitjoin').join()
-        end,
-        desc = 'Join the object under cursor',
-      },
-      {
-        'g,',
-        function()
-          require('splitjoin').split()
-        end,
-        desc = 'Split the object under cursor',
-      },
-    },
-  },
+  -- {
+  --   'bennypowers/splitjoin.nvim',
+  --   lazy = true,
+  --   keys = {
+  --     {
+  --       'gj',
+  --       function()
+  --         require('splitjoin').join()
+  --       end,
+  --       desc = 'Join the object under cursor',
+  --     },
+  --     {
+  --       'g,',
+  --       function()
+  --         require('splitjoin').split()
+  --       end,
+  --       desc = 'Split the object under cursor',
+  --     },
+  --   },
+  -- },
   {
     'windwp/nvim-autopairs',
     lazy = true,
@@ -54,9 +53,56 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      styles = {
+        -- Style to be applied to different syntax groups
+        -- Value is any valid attr-list value for `:help nvim_set_hl`
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = { bold = true },
+        variables = { underline = true },
+        -- Background styles. Can be "dark", "transparent" or "normal"
+        sidebars = 'dark', -- style for sidebars, see below
+        floats = 'dark', -- style for floating windows
+      },
       transparent = true,
     },
+    config = function()
+      vim.cmd [[colorscheme tokyonight-night]]
+    end,
   },
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require('kanagawa').setup {
+  --       compile = false, -- enable compiling the colorscheme
+  --       undercurl = true, -- enable undercurls
+  --       commentStyle = { italic = true },
+  --       functionStyle = {},
+  --       keywordStyle = { italic = true },
+  --       statementStyle = { bold = true },
+  --       typeStyle = {},
+  --       transparent = false, -- do not set background color
+  --       dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+  --       terminalColors = true, -- define vim.g.terminal_color_{0,17}
+  --       colors = { -- add/modify theme and palette colors
+  --         palette = {},
+  --         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  --       },
+  --       overrides = function(colors) -- add/modify highlights
+  --         return {}
+  --       end,
+  --       theme = 'wave', -- Load "wave" theme when 'background' option is not set
+  --       background = { -- map the value of 'background' option to a theme
+  --         dark = 'wave', -- try "dragon" !
+  --         light = 'lotus',
+  --       },
+  --     }
+  --     vim.o.background = ''
+  --     vim.cmd 'colorscheme kanagawa'
+  --   end,
+  -- },
   {
     'nvim-tree/nvim-tree.lua',
     lazy = true,
@@ -243,14 +289,14 @@ return {
   --    require("tint").setup()
   --  end
   --}
-  {
-    'Djancyp/better-comments.nvim',
-    lazy = true,
-    event = 'BufRead',
-    config = function()
-      require('better-comment').Setup()
-    end,
-  },
+  -- {
+  --   'Djancyp/better-comments.nvim',
+  --   lazy = true,
+  --   event = 'BufRead',
+  --   config = function()
+  --     require('better-comment').Setup()
+  --   end,
+  -- },
   -- ["vigoux/notifier.nvim"] = {
   --   config = function()
   --     require("notifier").setup()
@@ -273,11 +319,11 @@ return {
       vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
       vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
       -- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
-      vim.keymap.set('i', '<cr>', '<cr><cmd>AutolistNewBullet<cr>')
+      vim.keymap.set('i', '<CR>', '<cr><cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
       vim.keymap.set('n', '<CR>', '<cmd>AutolistToggleCheckbox<cr><CR>')
-      vim.keymap.set('n', '<C-r>', '<cmd>AutolistRecalculate<cr>')
+      vim.keymap.set('n', '<leader>aa', '<cmd>AutolistRecalculate<cr>')
 
       -- cycle list types with dot-repeat
       vim.keymap.set('n', '<leader>cn', require('autolist').cycle_next_dr, { expr = true })
@@ -301,7 +347,8 @@ return {
     event = 'BufEnter',
     config = function()
       -- require('mini.cursorword').setup()
-      require('mini.move').setup()
+      -- require('mini.move').setup()
+      require('mini.bracketed').setup()
     end,
   },
   {
@@ -319,7 +366,7 @@ return {
     event = 'BufRead',
     config = function()
       require('colorizer').setup {
-        filetypes = { '*' },
+        filetypes = { '*', '!tex', '!latex' },
         user_default_options = {
           RGB = true, -- #RGB hex codes
           RRGGBB = true, -- #RRGGBB hex codes
@@ -350,7 +397,9 @@ return {
     event = 'CursorMoved',
     config = function()
       ---@diagnostic disable-next-line: missing-fields, missing-parameter
-      require('smoothcursor').setup()
+      require('smoothcursor').setup {
+        disabled_filetypes = { 'tex' },
+      }
     end,
   },
   {
@@ -400,13 +449,13 @@ return {
       vim.g.vimtex_compiler_progname = 'nvr'
       vim.g.tex_flavor = 'latex'
       vim.g.vimtex_quickfix_mode = false
-      vim.g.vimtex_syntax_enabled = false
-      vim.g.vimtex_syntax_conceal_disable = true
       vim.g.vimtex_fold_enabled = true
       vim.g.vimtex_view_general_viewer = 'okular'
       vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+      vim.g.vimtex_format_enabled = false
       vim.o.fillchars = vim.o.fillchars .. 'fold: ,'
-      -- vim.g.vimtex_matchparen_enabled = 0
+      vim.g.vimtex_syntax_enabled = 0
+      vim.g.vimtex_syntax_conceal_disable = 1
     end,
     ft = { 'tex', 'plaintex', 'latex' },
   },
@@ -444,7 +493,11 @@ return {
       },
     },
   },
-  { 'sitiom/nvim-numbertoggle', lazy = true, event = 'BufRead' },
+  {
+    'sitiom/nvim-numbertoggle',
+    lazy = true,
+    event = 'BufRead',
+  },
   {
     'gnikdroy/projections.nvim',
     lazy = true,
@@ -458,7 +511,9 @@ return {
   {
     'Wansmer/treesj',
     keys = { '<space>m', '<space>j', '<space>s' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
     config = function()
       require('treesj').setup { --[[ your config ]]
       }
@@ -808,7 +863,7 @@ return {
       -- Define your formatters
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'isort', 'black' },
+        python = { 'black' },
         javascript = { { 'prettierd', 'prettier' } },
         rust = { 'rustfmt' },
       },
@@ -819,11 +874,97 @@ return {
         shfmt = {
           prepend_args = { '-i', '2' },
         },
+        black = {
+          command = 'black',
+        },
       },
     },
     init = function()
       -- If you want the formatexpr, here is the place to set it
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
+  },
+  {
+    'folke/todo-comments.nvim',
+    lazy = true,
+    event = 'BufReadPost',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  -- {
+  --   'chrisgrieser/nvim-spider',
+  --   keys = {
+  --     { -- example for lazy-loading and keymap
+  --       'e',
+  --       "<cmd>lua require('spider').motion('e', {skipInsignificantPunctuation = false})<CR>",
+  --       mode = { 'n', 'o', 'x' },
+  --     },
+  --     {
+  --       'w',
+  --       "<cmd>lua require('spider').motion('w', {skipInsignificantPunctuation = false})<CR>",
+  --       mode = { 'n', 'o', 'x' },
+  --     },
+  --     {
+  --       'b',
+  --       "<cmd>lua require('spider').motion('b', {skipInsignificantPunctuation = false})<CR>",
+  --       mode = { 'n', 'o', 'x' },
+  --     },
+  --     {
+  --       'ge',
+  --       "<cmd>lua require('spider').motion('ge', {skipInsignificantPunctuation = false})<CR>",
+  --       mode = { 'n', 'o', 'x' },
+  --     },
+  --   },
+  -- },
+  {
+    'stevearc/oil.nvim',
+    cmd = 'Oil',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = 'markdown',
+    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+    -- event = {
+    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    --   "BufReadPre path/to/my-vault/**.md",
+    --   "BufNewFile path/to/my-vault/**.md",
+    -- },
+    dependencies = {
+      -- Required.
+      'nvim-lua/plenary.nvim',
+
+      -- see below for full list of optional dependencies 👇
+    },
+    opts = {
+      workspaces = {
+        {
+          name = 'personal',
+          path = '~/Documents/Obsidian Vault',
+        },
+      },
+
+      -- see below for full list of options 👇
+    },
+  },
+  {
+    'David-Kunz/gen.nvim',
+    lazy = true,
+    cmd = 'Gen',
+  },
+  {
+    'tris203/hawtkeys.nvim',
+    lazy = true,
+    config = true,
+    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
   },
 }
