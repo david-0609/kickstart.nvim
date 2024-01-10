@@ -1,24 +1,24 @@
 return {
-  -- {
-  --   'bennypowers/splitjoin.nvim',
-  --   lazy = true,
-  --   keys = {
-  --     {
-  --       'gj',
-  --       function()
-  --         require('splitjoin').join()
-  --       end,
-  --       desc = 'Join the object under cursor',
-  --     },
-  --     {
-  --       'g,',
-  --       function()
-  --         require('splitjoin').split()
-  --       end,
-  --       desc = 'Split the object under cursor',
-  --     },
-  --   },
-  -- },
+  {
+    "bennypowers/splitjoin.nvim",
+    lazy = true,
+    keys = {
+      {
+        'gj',
+        function()
+          require('splitjoin').join()
+        end,
+        desc = 'Join the object under cursor',
+      },
+      {
+        'g,',
+        function()
+          require('splitjoin').split()
+        end,
+        desc = 'Split the object under cursor',
+      },
+    },
+  },
   {
     'windwp/nvim-autopairs',
     lazy = true,
@@ -943,8 +943,6 @@ return {
     dependencies = {
       -- Required.
       'nvim-lua/plenary.nvim',
-
-      -- see below for full list of optional dependencies 👇
     },
     opts = {
       workspaces = {
@@ -953,8 +951,6 @@ return {
           path = '~/Documents/Obsidian Vault',
         },
       },
-
-      -- see below for full list of options 👇
     },
   },
   {
@@ -966,6 +962,16 @@ return {
     'tris203/hawtkeys.nvim',
     lazy = true,
     config = true,
-    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
+    cmd = {
+      'Hawtkeys',
+      'HawtkeysAll',
+      'HawtkeysDupes',
+    },
   },
+  {
+    "NStefan002/visual-surround.nvim",
+    lazy = true,
+    event = "ModeChanged",
+    config = true
+  }
 }
