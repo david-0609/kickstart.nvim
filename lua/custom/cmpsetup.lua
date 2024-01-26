@@ -50,9 +50,10 @@ cmp.setup {
   },
   sources = cmp.config.sources {
     { name = 'nvim_lsp', priority = 10 },
-    { name = 'luasnip', priority = 9 },
+    { name = 'luasnip',  priority = 9 },
     { name = 'calc' },
     { name = 'path' },
+    { name = 'Codeium' },
     {
       name = 'buffer',
       priority = -2, -- Force buffer suggestions to the bottom
@@ -80,7 +81,7 @@ cmp.setup {
         mode = 'symbol_text',
         maxwidth = 50,
         menu = { omni = 'omni' },
-      }(entry, vim_item)
+      } (entry, vim_item)
       local strings = vim.split(kind.kind, '%s', { trimempty = true })
       kind.kind = ' ' .. (strings[1] or '') .. ' '
 
@@ -115,4 +116,3 @@ cmp.setup {
     },
   },
 }
-

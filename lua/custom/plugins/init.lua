@@ -318,7 +318,7 @@ return {
 
       vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
       vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
-      -- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
+      vim.keymap.set("n", "<leader>ee", "<cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
       vim.keymap.set('i', '<CR>', '<cr><cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
@@ -686,6 +686,7 @@ return {
     end,
   },
   { 'onsails/lspkind.nvim' },
+  -- { 'david-0609/battery.nvim' },
   { 'justinhj/battery.nvim' },
   {
     'folke/noice.nvim',
@@ -930,28 +931,31 @@ return {
   },
   {
     'epwalsh/obsidian.nvim',
-    version = '*', -- recommended, use latest release instead of latest commit
     lazy = true,
-    ft = 'markdown',
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    -- event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    --   "BufReadPre path/to/my-vault/**.md",
-    --   "BufNewFile path/to/my-vault/**.md",
-    -- },
+    version = '*', -- recommended, use latest release instead of latest commit
+    -- ft = 'markdown',
+    event = {
+      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+      "BufReadPre /home/david/Documents/Obsidian Vault/**.md",
+      "BufNewFile /home/david/Documents/Obsidian Vault/**.md",
+    },
     dependencies = {
       -- Required.
       'nvim-lua/plenary.nvim',
     },
-    opts = {
-      workspaces = {
-        {
-          name = 'personal',
-          path = '~/Documents/Obsidian Vault',
+
+    config = function()
+      vim.opt_local.conceallevel = 2
+      require('obsidian').setup({
+        workspaces = {
+          {
+            name = 'personal',
+            path = '/home/david/Documents/Obsidian Vault',
+          },
         },
-      },
-    },
+      })
+    end
   },
   {
     'David-Kunz/gen.nvim',
@@ -973,5 +977,56 @@ return {
     lazy = true,
     event = "ModeChanged",
     config = true
+  },
+  {
+    "johmsalas/text-case.nvim",
+    lazy = true,
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("textcase").setup({})
+      require("telescope").load_extension("textcase")
+    end,
+    keys = {
+      "ga", -- Default invocation prefix
+      {
+        "ga.",
+        "<cmd>TextCaseOpenTelescope<CR>",
+        mode = { "n", "v" },
+        desc = "Telescope",
+      },
+    },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    lazy = true,
+    keys = {
+      {
+        "<leader>hf",
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        desc = "Harpoon add file",
+      },
+      {
+        "<leader>hm",
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        desc = "Harpoon toggle menu",
+      },
+      {
+        "<leader>hn",
+        function()
+          require("harpoon.ui").nav_next()
+        end,
+        desc = "Harpoon next",
+      },
+      {
+        "<leader>hp",
+        function()
+          require("harpoon.ui").nav_prev()
+        end,
+      }
+    }
   }
 }
