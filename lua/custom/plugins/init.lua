@@ -347,7 +347,30 @@ return {
     event = 'BufEnter',
     config = function()
       -- require('mini.cursorword').setup()
-      -- require('mini.move').setup()
+      require('mini.move').setup(
+        {
+          -- Module mappings. Use `''` (empty string) to disable one.
+          mappings = {
+            -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+            left = '<A-h>',
+            right = '<A-l>',
+            down = '<A-j>',
+            up = '<A-k>',
+
+            -- Move current line in Normal mode
+            line_left = '<A-h>',
+            line_right = '<A-l>',
+            line_down = '<A-j>',
+            line_up = '<A-k>',
+          },
+
+          -- Options which control moving behavior
+          options = {
+            -- Automatically reindent selection during linewise vertical move
+            reindent_linewise = true,
+          },
+        }
+      )
       require('mini.bracketed').setup()
     end,
   },
@@ -643,11 +666,6 @@ return {
         },
       }
     end,
-  },
-  {
-    'fedepujol/move.nvim',
-    lazy = true,
-    event = 'BufRead',
   },
   {
     'HiPhish/rainbow-delimiters.nvim',
@@ -954,6 +972,10 @@ return {
             path = '/home/david/Documents/Obsidian Vault',
           },
         },
+        follow_url_func = function(url)
+          -- Open the URL in the default web browser.
+          vim.fn.jobstart({ "xdg-open", url }) -- linux
+        end,
       })
     end
   },
@@ -1028,5 +1050,45 @@ return {
         end,
       }
     }
-  }
+  },
+  {
+    '0xAdk/full_visual_line.nvim',
+    keys = 'V',
+    opts = {},
+  },
+  {
+    'rasulomaroff/reactive.nvim',
+    lazy = true,
+    event = 'VeryLazy',
+    config = function()
+      require('reactive').setup {
+        builtin = {
+          cursorline = true,
+          cursor = true,
+          modemsg = true
+        }
+      }
+    end
+  },
+  {
+    'fredeeb/tardis.nvim',
+    lazy = true,
+    cmd = 'Tardis',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = true,
+  },
+  {
+    "https://git.sr.ht/~swaits/scratch.nvim",
+    lazy = true,
+    keys = {
+      { "<leader>bs", "<cmd>Scratch<cr>",      desc = "Scratch Buffer",         mode = "n" },
+      { "<leader>bS", "<cmd>ScratchSplit<cr>", desc = "Scratch Buffer (split)", mode = "n" },
+    },
+    cmd = {
+      "Scratch",
+      "ScratchSplit",
+    },
+    opts = {},
+  },
+
 }
