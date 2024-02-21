@@ -205,13 +205,27 @@ return {
     'folke/zen-mode.nvim',
     lazy = true,
     cmd = 'ZenMode',
-    config = function()
-      require('zen-mode').setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+    opts = {
+      plugins = {
+        twilight = {
+          enabled = false
+        },
+        kitty = {
+          enabled = true,
+          font = "+2", -- font size increment
+        },
       }
-    end,
+    }
+  },
+  {
+    'folke/twilight.nvim',
+    lazy = true,
+    keys = {
+      {
+        '<leader>tw',
+        [[<cmd>Twilight<cr>]],
+      }
+    }
   },
   -- {
   --   'dinhhuy258/git.nvim',
@@ -910,9 +924,12 @@ return {
     event = 'BufReadPost',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      keywords = {
+        IDEA = {
+          icon = "",
+          color = "info",
+        }
+      }
     },
   },
   -- {
@@ -1090,5 +1107,21 @@ return {
     },
     opts = {},
   },
-
+  {
+    "jiaoshijie/undotree",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = true,
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>uo", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
+  },
+  {
+    'sindrets/winshift.nvim',
+    lazy = true,
+    config = true,
+    cmd = { 'WinShift' },
+    keys = {
+      { "<leader>wh", "<cmd>WinShift<cr>", desc = "WinShift" }
+    }
+  }
 }
