@@ -536,11 +536,10 @@ return {
     lazy = true,
     event = 'BufRead',
   },
-  {
-    'gnikdroy/projections.nvim',
-    lazy = true,
-    branch = 'pre_release',
-  },
+  -- {
+  --   'gnikdroy/projections.nvim',
+  --   lazy = true,
+  -- },
   {
     'nullchilly/fsread.nvim',
     lazy = true,
@@ -1123,5 +1122,19 @@ return {
     keys = {
       { "<leader>wh", "<cmd>WinShift<cr>", desc = "WinShift" }
     }
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    lazy = true,
+    keys = {
+      { "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Projects" }
+    },
+    config = function()
+      require("project_nvim").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
   }
 }

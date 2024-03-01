@@ -103,55 +103,55 @@ vim.cmd 'command! PetsEnable lua lazy_load_pets()'
 --   },
 -- }
 --
-local projections_loaded = false
-function lazy_load_projections()
-  if not projections_loaded then
-    require('projections').setup {
-      store_hooks = {
-        pre = function()
-          local nvim_tree_present, api = pcall(require, 'nvim-tree.api')
-          if nvim_tree_present then
-            api.tree.close()
-          end
-        end,
-      },
-      workspaces = { -- Default workspaces to search for
-        -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
-        { '~/Documents/dev', { '.git', 'Cargo.toml' } },
-        { '~/.config',       { '.git', 'nvim' } },
-        -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
-      },
-    }
+-- local projections_loaded = false
+-- function lazy_load_projections()
+--   if not projections_loaded then
+--     require('projections').setup {
+--       store_hooks = {
+--         pre = function()
+--           local nvim_tree_present, api = pcall(require, 'nvim-tree.api')
+--           if nvim_tree_present then
+--             api.tree.close()
+--           end
+--         end,
+--       },
+--       workspaces = { -- Default workspaces to search for
+--         -- "~/dev",                               dev is a workspace. default patterns is used (specified below)
+--         { '~/Documents/dev', { '.git', 'Cargo.toml' } },
+--         { '~/.config',       { '.git', 'nvim' } },
+--         -- { "~/repos", {} },                     An empty pattern list indicates that all subfolders are considered projects
+--       },
+--     }
+--
+--     -- Bind <leader>fp to Telescope projections
+--     require('telescope').load_extension 'projections'
+--
+--     local Session = require 'projections.session'
+--     vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
+--       callback = function()
+--         Session.store(vim.loop.cwd())
+--       end,
+--     })
+--
+--     -- Switch to project if vim was started in a project dir
+--     -- local switcher = require("projections.switcher")
+--     -- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+--     --   callback = function()
+--     --     if vim.fn.argc() == 0 then switcher.switch(vim.loop.cwd()) end
+--     --   end,
+--     -- })
+--
+--     projections_loaded = true
+--
+--     vim.cmd 'Telescope projections'
+--   else
+--     vim.cmd 'Telescope projections'
+--   end
+-- end
 
-    -- Bind <leader>fp to Telescope projections
-    require('telescope').load_extension 'projections'
+-- vim.cmd 'command! Projections lua lazy_load_projections()'
 
-    local Session = require 'projections.session'
-    vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
-      callback = function()
-        Session.store(vim.loop.cwd())
-      end,
-    })
-
-    -- Switch to project if vim was started in a project dir
-    -- local switcher = require("projections.switcher")
-    -- vim.api.nvim_create_autocmd({ "VimEnter" }, {
-    --   callback = function()
-    --     if vim.fn.argc() == 0 then switcher.switch(vim.loop.cwd()) end
-    --   end,
-    -- })
-
-    projections_loaded = true
-
-    vim.cmd 'Telescope projections'
-  else
-    vim.cmd 'Telescope projections'
-  end
-end
-
-vim.cmd 'command! Projections lua lazy_load_projections()'
-
-vim.keymap.set('n', '<leader>fp', '<cmd> Projections <cr>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>fp', '<cmd> Projections <cr>', { noremap = true, silent = true })
 
 vim.keymap.set('i', '<CR>', function()
   -- run autolist-new-bullet after the <cr> of nvim-autopairs-cr
@@ -281,7 +281,9 @@ vim.g.codeium_filetypes = {
 }
 
 vim.g.codeium_disable_bindings = 1
+require('telescope').load_extension('projects')
 
 vim.cmd [[
 set ttyfast
+set conceallevel=2
 ]]

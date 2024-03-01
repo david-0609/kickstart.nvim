@@ -65,7 +65,7 @@ local options = {
       button('e', '  New file', ':ene | startinsert <CR>'),
       -- button("SPC f w", "󰈭  Find Word  ", ":Telescope live_grep<CR>"),
       -- button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
-      button('SPC f p', '  Projects', ':Projections<CR>'),
+      button('SPC f p', '  Projects', ':Telescope projects<CR>'),
       button('SPC e s', '  Settings', ':e $MYVIMRC | :cd %:p:h <CR>'),
       button(':qa', '󰗼  Exit Neovim'),
     },

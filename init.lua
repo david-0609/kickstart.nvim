@@ -374,7 +374,7 @@ require('nvim-treesitter.configs').setup {
       end
       -- Disable treesitter for latex files
       if lang == 'tex' or lang == 'latex' then
-      return true
+        return true
       end
     end,
     additional_vim_regex_highlighting = false,
