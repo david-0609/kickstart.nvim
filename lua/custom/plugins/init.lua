@@ -486,6 +486,9 @@ return {
     config = function()
       vim.g.vimtex_compiler_progname = 'nvr'
       vim.g.tex_flavor = 'latex'
+      vim.g.vimtex_compiler_latexmk_engines = {
+        _ = '-xelatex',
+      }
       vim.g.vimtex_quickfix_mode = false
       vim.g.vimtex_fold_enabled = true
       vim.g.vimtex_view_general_viewer = 'okular'
@@ -958,8 +961,22 @@ return {
   -- },
   {
     'stevearc/oil.nvim',
+    lazy = true,
     cmd = 'Oil',
-    opts = {},
+    keys = {
+      {
+        '<leader>oe',
+        function()
+          -- vim.cmd('vsplit')
+          require('oil').toggle_float()
+        end,
+      }
+    },
+    opts = {
+      float = {
+        padding = 4
+      }
+    },
     -- Optional dependencies
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
