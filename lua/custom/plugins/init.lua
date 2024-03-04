@@ -1090,20 +1090,6 @@ return {
     opts = {},
   },
   {
-    'rasulomaroff/reactive.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    config = function()
-      require('reactive').setup {
-        builtin = {
-          cursorline = true,
-          cursor = true,
-          modemsg = true
-        }
-      }
-    end
-  },
-  {
     'fredeeb/tardis.nvim',
     lazy = true,
     cmd = 'Tardis',
@@ -1152,6 +1138,15 @@ return {
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
+    end
+  },
+  {
+    'mvllow/modes.nvim',
+    lazy = true,
+    event = 'VeryLazy',
+    tag = 'v0.2.0',
+    config = function()
+      require('modes').setup()
     end
   }
 }
