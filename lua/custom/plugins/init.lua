@@ -930,6 +930,10 @@ return {
         IDEA = {
           icon = "",
           color = "info",
+        },
+        IMPORTANT = {
+          icon = "!",
+          color = "warning"
         }
       }
     },
@@ -1011,11 +1015,6 @@ return {
         end,
       })
     end
-  },
-  {
-    'David-Kunz/gen.nvim',
-    lazy = true,
-    cmd = 'Gen',
   },
   {
     'tris203/hawtkeys.nvim',
@@ -1148,5 +1147,14 @@ return {
     config = function()
       require('modes').setup()
     end
-  }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    lazy = true,
+    cmd = { "TSContextToggle", "TSContextEnable", "TSContextDisable" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("treesitter-context").setup()
+    end
+  },
 }
