@@ -445,33 +445,44 @@ return {
     event = 'BufRead',
   },
   {
-    'simrat39/rust-tools.nvim',
-    lazy = true,
-    -- dependencies = 'nvim-lspconfig',
-    ft = { 'rust', 'toml' },
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    ft = { 'rust' },
+    dependencies = { 'simrat39/inlay-hints.nvim' },
     config = function()
-      require('rust-tools').setup {
-
-        settings = {
-          ['rust-analyzer'] = {
-            inlayHints = { locationLinks = false },
-            checkOnSave = {
-              command = 'clippy',
+      vim.keymap.set('n', '<leader>ha', '<cmd>RustLsp hover actions<cr>', { desc = 'Hover Actions' })
+      vim.keymap.set('n', '<leader>ca', '<cmd>RustLsp codeAction<cr>', { desc = 'Code Actions' })
+      require("inlay-hints").setup({
+        renderer = "inlay-hints/render/eol",
+      })
+      local ih = require("inlay-hints")
+      vim.g.rustaceanvim = {
+        -- Plugin configuration
+        tools = {
+          float_win_config = {
+            auto_focus = true
+          },
+          on_initialized = function()
+            ih.set_all()
+          end,
+        },
+        -- LSP configuration
+        server = {
+          on_attach = function(client, bufnr)
+            ih.on_attach { client = client, buffer = bufnr }
+            -- you can also put keymaps in here
+          end,
+          default_settings = {
+            -- rust-analyzer language server configuration
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy',
+              }
             },
           },
         },
-
-        server = {
-          on_attach = function(_, bufnr)
-            -- Hover actions
-            vim.keymap.set('n', '<leader>ha', require('rust-tools').hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set('n', '<leader>ca', require('rust-tools').code_action_group.code_action_group,
-              { buffer = bufnr })
-          end,
-        },
       }
-    end,
+    end
   },
   {
     'm-demare/hlargs.nvim',
@@ -1052,36 +1063,38 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     lazy = true,
-    keys = {
-      {
-        "<leader>hf",
-        function()
-          require("harpoon.mark").add_file()
-        end,
-        desc = "Harpoon add file",
-      },
-      {
-        "<leader>hm",
-        function()
-          require("harpoon.ui").toggle_quick_menu()
-        end,
-        desc = "Harpoon toggle menu",
-      },
-      {
-        "<leader>hn",
-        function()
-          require("harpoon.ui").nav_next()
-        end,
-        desc = "Harpoon next",
-      },
-      {
-        "<leader>hp",
-        function()
-          require("harpoon.ui").nav_prev()
-        end,
-      }
-    }
+    -- keys = {
+    --   {
+    --     "<leader>hf",
+    --     function()
+    --       require("harpoon.list").append()
+    --     end,
+    --     desc = "Harpoon add file",
+    --   },
+    --   {
+    --     "<leader>hm",
+    --     function()
+    --       require("harpoon.ui").toggle_quick_menu(require("harpoon.list"))
+    --     end,
+    --     desc = "Harpoon toggle menu",
+    --   },
+    --   {
+    --     "<leader>hn",
+    --     function()
+    --       require("harpoon.list").next()
+    --     end,
+    --     desc = "Harpoon next",
+    --   },
+    --   {
+    --     "<leader>hb",
+    --     function()
+    --       require("harpoon.list").prev()
+    --     end,
+    --     desc = "Harpoon prev",
+    --   }
+    -- }
   },
   {
     '0xAdk/full_visual_line.nvim',

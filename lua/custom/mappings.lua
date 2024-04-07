@@ -89,3 +89,5 @@ vim.keymap.set('n', '<leader>xt', '<cmd> TodoTrouble <CR>')
 vim.keymap.set('n', 'gR', function()
   require('trouble').open 'lsp_references'
 end)
+
+vim.keymap.set('n', '<leader>fl', '<cmd>ObsidianFollowLink<cr>')
