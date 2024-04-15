@@ -294,7 +294,7 @@ local harpoon = require("harpoon")
 harpoon:setup()
 -- REQUIRED
 
-vim.keymap.set("n", "<leader>hf", function() harpoon:list():append() end)
+vim.keymap.set("n", "<leader>hf", function() harpoon:list():add() end)
 vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
