@@ -1,6 +1,6 @@
 return {
   {
-    "bennypowers/splitjoin.nvim",
+    'bennypowers/splitjoin.nvim',
     lazy = true,
     keys = {
       {
@@ -50,25 +50,25 @@ return {
   },
   {
     'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {
-      styles = {
-        -- Style to be applied to different syntax groups
-        -- Value is any valid attr-list value for `:help nvim_set_hl`
-        comments = { italic = true },
-        keywords = { italic = true },
-        functions = { bold = true },
-        variables = { underline = true },
-        -- Background styles. Can be "dark", "transparent" or "normal"
-        sidebars = 'dark', -- style for sidebars, see below
-        floats = 'dark',   -- style for floating windows
-      },
-      transparent = true,
-    },
-    config = function()
-      vim.cmd [[colorscheme tokyonight-night]]
-    end,
+    -- lazy = false,
+    -- priority = 1000,
+    -- config = function()
+    --   require("tokyonight").setup {
+    --     style = "night",
+    --     transparent = true,
+    --     styles = {
+    --       -- Style to be applied to different syntax groups
+    --       -- Value is any valid attr-list value for `:help nvim_set_hl`
+    --       comments = { italic = true },
+    --       keywords = { italic = true },
+    --       functions = { bold = true },
+    --       variables = { underline = true },
+    --       -- Background styles. Can be "dark", "transparent" or "normal"
+    --       sidebars = 'dark', -- style for sidebars, see below
+    --       floats = 'dark',   -- style for floating windows
+    --     },
+    --   }
+    -- end
   },
   -- {
   --   'rebelot/kanagawa.nvim',
@@ -208,14 +208,14 @@ return {
     opts = {
       plugins = {
         twilight = {
-          enabled = false
+          enabled = false,
         },
         kitty = {
           enabled = true,
-          font = "+2", -- font size increment
+          font = '+1', -- font size increment
         },
-      }
-    }
+      },
+    },
   },
   {
     'folke/twilight.nvim',
@@ -224,8 +224,8 @@ return {
       {
         '<leader>tw',
         [[<cmd>Twilight<cr>]],
-      }
-    }
+      },
+    },
   },
   -- {
   --   'dinhhuy258/git.nvim',
@@ -332,7 +332,7 @@ return {
 
       vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
       vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
-      vim.keymap.set("n", "<leader>ee", "<cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
+      vim.keymap.set('n', '<leader>ee', '<cmd>AutolistRecalculate<cr>') -- an example of using <c-t> to indent
       vim.keymap.set('i', '<CR>', '<cr><cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
       vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
@@ -361,30 +361,28 @@ return {
     event = 'BufEnter',
     config = function()
       -- require('mini.cursorword').setup()
-      require('mini.move').setup(
-        {
-          -- Module mappings. Use `''` (empty string) to disable one.
-          mappings = {
-            -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-            left = '<A-h>',
-            right = '<A-l>',
-            down = '<A-j>',
-            up = '<A-k>',
+      require('mini.move').setup {
+        -- Module mappings. Use `''` (empty string) to disable one.
+        mappings = {
+          -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+          left = '<A-h>',
+          right = '<A-l>',
+          down = '<A-j>',
+          up = '<A-k>',
 
-            -- Move current line in Normal mode
-            line_left = '<A-h>',
-            line_right = '<A-l>',
-            line_down = '<A-j>',
-            line_up = '<A-k>',
-          },
+          -- Move current line in Normal mode
+          line_left = '<A-h>',
+          line_right = '<A-l>',
+          line_down = '<A-j>',
+          line_up = '<A-k>',
+        },
 
-          -- Options which control moving behavior
-          options = {
-            -- Automatically reindent selection during linewise vertical move
-            reindent_linewise = true,
-          },
-        }
-      )
+        -- Options which control moving behavior
+        options = {
+          -- Automatically reindent selection during linewise vertical move
+          reindent_linewise = true,
+        },
+      }
       require('mini.bracketed').setup()
     end,
   },
@@ -452,15 +450,15 @@ return {
     config = function()
       vim.keymap.set('n', '<leader>ha', '<cmd>RustLsp hover actions<cr>', { desc = 'Hover Actions' })
       vim.keymap.set('n', '<leader>ca', '<cmd>RustLsp codeAction<cr>', { desc = 'Code Actions' })
-      require("inlay-hints").setup({
-        renderer = "inlay-hints/render/eol",
-      })
-      local ih = require("inlay-hints")
+      require('inlay-hints').setup {
+        -- renderer = "inlay-hints/render/eol",
+      }
+      local ih = require 'inlay-hints'
       vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
           float_win_config = {
-            auto_focus = true
+            auto_focus = true,
           },
           on_initialized = function()
             ih.set_all()
@@ -477,12 +475,12 @@ return {
             ['rust-analyzer'] = {
               checkOnSave = {
                 command = 'clippy',
-              }
+              },
             },
           },
         },
       }
-    end
+    end,
   },
   {
     'm-demare/hlargs.nvim',
@@ -939,14 +937,14 @@ return {
     opts = {
       keywords = {
         IDEA = {
-          icon = "",
-          color = "info",
+          icon = '',
+          color = 'info',
         },
         IMPORTANT = {
-          icon = "!",
-          color = "warning"
-        }
-      }
+          icon = '!',
+          color = 'warning',
+        },
+      },
     },
   },
   -- {
@@ -985,26 +983,26 @@ return {
           -- vim.cmd('vsplit')
           require('oil').toggle_float()
         end,
-      }
+      },
     },
     opts = {
       float = {
-        padding = 4
-      }
+        padding = 4,
+      },
     },
     -- Optional dependencies
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
-    'epwalsh/obsidian.nvim',
+    'david-0609/obsidian.nvim',
     lazy = true,
     version = '*', -- recommended, use latest release instead of latest commit
     -- ft = 'markdown',
     event = {
       -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
       -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-      "BufReadPre /home/david/Documents/Obsidian Vault/**.md",
-      "BufNewFile /home/david/Documents/Obsidian Vault/**.md",
+      'BufReadPre /home/david/Documents/Obsidian Vault/**.md',
+      'BufNewFile /home/david/Documents/Obsidian Vault/**.md',
     },
     dependencies = {
       -- Required.
@@ -1013,7 +1011,7 @@ return {
 
     config = function()
       vim.opt_local.conceallevel = 2
-      require('obsidian').setup({
+      require('obsidian').setup {
         workspaces = {
           {
             name = 'personal',
@@ -1022,10 +1020,10 @@ return {
         },
         follow_url_func = function(url)
           -- Open the URL in the default web browser.
-          vim.fn.jobstart({ "xdg-open", url }) -- linux
+          vim.fn.jobstart { 'xdg-open', url } -- linux
         end,
-      })
-    end
+      }
+    end,
   },
   {
     'tris203/hawtkeys.nvim',
@@ -1038,32 +1036,32 @@ return {
     },
   },
   {
-    "NStefan002/visual-surround.nvim",
+    'NStefan002/visual-surround.nvim',
     lazy = true,
-    event = "ModeChanged",
-    config = true
+    event = 'ModeChanged',
+    config = true,
   },
   {
-    "johmsalas/text-case.nvim",
+    'johmsalas/text-case.nvim',
     lazy = true,
-    dependencies = { "nvim-telescope/telescope.nvim" },
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     config = function()
-      require("textcase").setup({})
-      require("telescope").load_extension("textcase")
+      require('textcase').setup {}
+      require('telescope').load_extension 'textcase'
     end,
     keys = {
-      "ga", -- Default invocation prefix
+      'ga', -- Default invocation prefix
       {
-        "ga.",
-        "<cmd>TextCaseOpenTelescope<CR>",
-        mode = { "n", "v" },
-        desc = "Telescope",
+        'ga.',
+        '<cmd>TextCaseOpenTelescope<CR>',
+        mode = { 'n', 'v' },
+        desc = 'Telescope',
       },
     },
   },
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
     lazy = true,
     -- keys = {
     --   {
@@ -1109,24 +1107,24 @@ return {
     config = true,
   },
   {
-    "https://git.sr.ht/~swaits/scratch.nvim",
+    'https://git.sr.ht/~swaits/scratch.nvim',
     lazy = true,
     keys = {
-      { "<leader>bs", "<cmd>Scratch<cr>",      desc = "Scratch Buffer",         mode = "n" },
-      { "<leader>bS", "<cmd>ScratchSplit<cr>", desc = "Scratch Buffer (split)", mode = "n" },
+      { '<leader>bs', '<cmd>Scratch<cr>',      desc = 'Scratch Buffer',         mode = 'n' },
+      { '<leader>bS', '<cmd>ScratchSplit<cr>', desc = 'Scratch Buffer (split)', mode = 'n' },
     },
     cmd = {
-      "Scratch",
-      "ScratchSplit",
+      'Scratch',
+      'ScratchSplit',
     },
     opts = {},
   },
   {
-    "jiaoshijie/undotree",
-    dependencies = "nvim-lua/plenary.nvim",
+    'jiaoshijie/undotree',
+    dependencies = 'nvim-lua/plenary.nvim',
     config = true,
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>uo", "<cmd>lua require('undotree').toggle()<cr>" },
+      { '<leader>uo', "<cmd>lua require('undotree').toggle()<cr>" },
     },
   },
   {
@@ -1135,22 +1133,22 @@ return {
     config = true,
     cmd = { 'WinShift' },
     keys = {
-      { "<leader>wh", "<cmd>WinShift<cr>", desc = "WinShift" }
-    }
+      { '<leader>wh', '<cmd>WinShift<cr>', desc = 'WinShift' },
+    },
   },
   {
-    "ahmedkhalf/project.nvim",
+    'ahmedkhalf/project.nvim',
     lazy = true,
     keys = {
-      { "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Projects" }
+      { '<leader>fp', '<cmd>Telescope projects<cr>', desc = 'Projects' },
     },
     config = function()
-      require("project_nvim").setup {
+      require('project_nvim').setup {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
-    end
+    end,
   },
   {
     'mvllow/modes.nvim',
@@ -1159,15 +1157,23 @@ return {
     tag = 'v0.2.0',
     config = function()
       require('modes').setup()
-    end
+    end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-context",
+    'nvim-treesitter/nvim-treesitter-context',
     lazy = true,
-    cmd = { "TSContextToggle", "TSContextEnable", "TSContextDisable" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = { 'TSContextToggle', 'TSContextEnable', 'TSContextDisable' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require("treesitter-context").setup()
-    end
+      require('treesitter-context').setup()
+    end,
+  },
+  { 'nvim-neotest/nvim-nio' },
+  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
+  {
+    'nvim-pack/nvim-spectre',
+    keys = {
+      { '<leader>S', "<cmd>lua require('spectre').toggle()<cr>", desc = 'Spectre' },
+    },
   },
 }
