@@ -30,7 +30,7 @@ return {
     lazy = true,
     event = 'BufRead',
     dependencies = {
-      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function()
@@ -278,17 +278,6 @@ return {
     end,
   },
   {
-    'phaazon/mind.nvim',
-    lazy = true,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    branch = 'v2.2',
-    config = function()
-      require('mind').setup()
-    end,
-  },
-  {
     'iamcco/markdown-preview.nvim',
     lazy = true,
     build = function()
@@ -403,20 +392,20 @@ return {
       require('colorizer').setup {
         filetypes = { '*', '!tex', '!latex' },
         user_default_options = {
-          RGB = true,          -- #RGB hex codes
-          RRGGBB = true,       -- #RRGGBB hex codes
-          names = true,        -- "Name" codes like Blue or blue
-          RRGGBBAA = false,    -- #RRGGBBAA hex codes
-          AARRGGBB = false,    -- 0xAARRGGBB hex codes
-          rgb_fn = false,      -- CSS rgb() and rgba() functions
-          hsl_fn = false,      -- CSS hsl() and hsla() functions
-          css = true,          -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-          css_fn = true,       -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          RGB = true, -- #RGB hex codes
+          RRGGBB = true, -- #RRGGBB hex codes
+          names = true, -- "Name" codes like Blue or blue
+          RRGGBBAA = false, -- #RRGGBBAA hex codes
+          AARRGGBB = false, -- 0xAARRGGBB hex codes
+          rgb_fn = false, -- CSS rgb() and rgba() functions
+          hsl_fn = false, -- CSS hsl() and hsla() functions
+          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
           -- Available modes for `mode`: foreground, background,  virtualtext
           mode = 'background', -- Set the display mode.
           -- Available methods are false / true / "normal" / "lsp" / "both"
           -- True is same as normal
-          tailwind = true,                                -- Enable tailwind colors
+          tailwind = true, -- Enable tailwind colors
           -- parsers can contain values used in |user_default_options|
           sass = { enable = false, parsers = { 'css' } }, -- Enable sass colors
           virtualtext = '■',
@@ -446,30 +435,19 @@ return {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
     ft = { 'rust' },
-    dependencies = { 'simrat39/inlay-hints.nvim' },
+    -- dependencies = { 'simrat39/inlay-hints.nvim' },
     config = function()
       vim.keymap.set('n', '<leader>ha', '<cmd>RustLsp hover actions<cr>', { desc = 'Hover Actions' })
       vim.keymap.set('n', '<leader>ca', '<cmd>RustLsp codeAction<cr>', { desc = 'Code Actions' })
-      require('inlay-hints').setup {
-        -- renderer = "inlay-hints/render/eol",
-      }
-      local ih = require 'inlay-hints'
       vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
           float_win_config = {
             auto_focus = true,
           },
-          on_initialized = function()
-            ih.set_all()
-          end,
         },
         -- LSP configuration
         server = {
-          on_attach = function(client, bufnr)
-            ih.on_attach { client = client, buffer = bufnr }
-            -- you can also put keymaps in here
-          end,
           default_settings = {
             -- rust-analyzer language server configuration
             ['rust-analyzer'] = {
@@ -1110,7 +1088,7 @@ return {
     'https://git.sr.ht/~swaits/scratch.nvim',
     lazy = true,
     keys = {
-      { '<leader>bs', '<cmd>Scratch<cr>',      desc = 'Scratch Buffer',         mode = 'n' },
+      { '<leader>bs', '<cmd>Scratch<cr>', desc = 'Scratch Buffer', mode = 'n' },
       { '<leader>bS', '<cmd>ScratchSplit<cr>', desc = 'Scratch Buffer (split)', mode = 'n' },
     },
     cmd = {

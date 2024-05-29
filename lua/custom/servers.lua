@@ -6,6 +6,8 @@ return {
     },
   },
   pyright = {},
+  -- pylyzer = {},
+  -- ruff_lsp = {},
   tailwindcss = {},
   zls = {},
   cssls = {},
