@@ -50,7 +50,7 @@ cmp.setup {
   },
   sources = cmp.config.sources {
     { name = 'nvim_lsp', priority = 10 },
-    { name = 'luasnip',  priority = 9 },
+    { name = 'luasnip', priority = 9 },
     { name = 'calc' },
     { name = 'path' },
     { name = 'Codeium' },
@@ -62,6 +62,10 @@ cmp.setup {
           return vim.api.nvim_list_bufs()
         end,
       },
+    },
+    {
+      name = 'lazydev',
+      group_index = 0, -- set group index to 0 to skip loading LuaLS completions
     },
   },
   window = {
@@ -81,7 +85,7 @@ cmp.setup {
         mode = 'symbol_text',
         maxwidth = 50,
         menu = { omni = 'omni' },
-      } (entry, vim_item)
+      }(entry, vim_item)
       local strings = vim.split(kind.kind, '%s', { trimempty = true })
       kind.kind = ' ' .. (strings[1] or '') .. ' '
 

@@ -682,7 +682,8 @@ return {
   {
     'Exafunction/codeium.vim',
     lazy = true,
-    event = 'InsertEnter',
+    -- event = 'InsertEnter',
+    cmd = 'CodeiumEnable',
     config = function()
       -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set('i', '<C-g>', function()
@@ -972,7 +973,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
-    'david-0609/obsidian.nvim',
+    'epwalsh/obsidian.nvim',
     lazy = true,
     version = '*', -- recommended, use latest release instead of latest commit
     -- ft = 'markdown',
@@ -1154,4 +1155,16 @@ return {
       { '<leader>S', "<cmd>lua require('spectre').toggle()<cr>", desc = 'Spectre' },
     },
   },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua', -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
 }

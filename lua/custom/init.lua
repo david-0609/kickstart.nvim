@@ -25,7 +25,7 @@ vim.opt.termguicolors = true
 --
 -- -- Define an autocmd that runs when a buffer is opened
 -- vim.cmd 'autocmd BufRead * lua special_highlights()'
--- vim.cmd 'hi! LspInlayHint guibg=#1f2335 guifg=#6272a4'
+vim.cmd 'hi! LspInlayHint guibg=#1f2335 guifg=#6272a4'
 vim.cmd 'command! MindOpenMain lua lazy_load_mind()'
 function lazy_load_mind()
   local mind = require 'mind'
