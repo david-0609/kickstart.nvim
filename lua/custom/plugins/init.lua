@@ -373,6 +373,7 @@ return {
         },
       }
       require('mini.bracketed').setup()
+      require('mini.git').setup()
     end,
   },
   {
@@ -800,11 +801,11 @@ return {
     'stevearc/dressing.nvim',
     opts = {},
   },
-  {
-    'tpope/vim-fugitive',
-    lazy = true,
-    cmd = 'Git',
-  },
+  -- {
+  --   'tpope/vim-fugitive',
+  --   lazy = true,
+  --   cmd = 'Git',
+  -- },
   {
     'folke/trouble.nvim',
     lazy = true,
