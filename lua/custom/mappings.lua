@@ -89,5 +89,12 @@ vim.keymap.set('n', '<leader>xt', '<cmd> TodoTrouble <CR>')
 vim.keymap.set('n', 'gR', function()
   require('trouble').open 'lsp_references'
 end)
+-- mapping to resize windows
+vim.cmd [[
+map <A-S-Left> <C-W>>
+map <A-S-Right> <C-W><
+map <A-S-Up> <C-W>+
+map <A-S-Down> <C-W>-
+]]
 
 vim.keymap.set('n', '<leader>fl', '<cmd>ObsidianFollowLink<cr>')

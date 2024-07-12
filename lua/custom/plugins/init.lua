@@ -1168,4 +1168,16 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
+  {
+    'tris203/precognition.nvim',
+    lazy = true,
+    opts = {
+      highlightColor = {
+        link = 'LspInlayHint',
+      },
+    },
+    keys = {
+      { '<leader>tg', "<cmd> lua require('precognition').toggle() <cr>", desc = 'Toggle precognition' },
+    },
+  },
 }

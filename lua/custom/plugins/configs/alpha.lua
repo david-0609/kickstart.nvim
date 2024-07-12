@@ -14,7 +14,7 @@ local function button(sc, txt, keybind)
     cursor = 5,
     width = 36,
     align_shortcut = 'right',
-    hl = 'AerialConstructorIcon',
+    hl = 'Exception',
   }
 
   if keybind then
@@ -71,6 +71,7 @@ local options = {
     },
     opts = {
       spacing = 1,
+      hl = 'Exception',
     },
   },
 
