@@ -144,17 +144,7 @@ require('lazy').setup({
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
-    opts = {
-      triggers_blacklist = {
-        n = {
-          'd',
-          'y',
-        },
-      },
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = {},
   },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
