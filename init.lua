@@ -546,6 +546,11 @@ require('tokyonight').setup {
     sidebars = 'dark', -- style for sidebars, see below
     floats = 'dark', -- style for floating windows
   },
+  on_highlights = function(hl, c)
+    hl.Boolean = { fg = '#ff9e64', italic = true }
+    hl.Conditional = { fg = '#bb9af7', italic = true }
+    hl.Statement = { fg = '#bb9af7', italic = true }
+  end,
 }
 vim.cmd [[colorscheme tokyonight]]
 
