@@ -547,6 +547,7 @@ require('tokyonight').setup {
     floats = 'dark', -- style for floating windows
   },
   on_highlights = function(hl, c)
+    -- Section to customise highlights
     hl.Boolean = { fg = '#ff9e64', italic = true }
     hl.Conditional = { fg = '#bb9af7', italic = true }
     hl.Statement = { fg = '#bb9af7', italic = true }
