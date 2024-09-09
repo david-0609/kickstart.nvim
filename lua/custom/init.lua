@@ -18,11 +18,11 @@ vim.opt.termguicolors = true
 --   vim.cmd 'hi! link @keyword Keyword'
 --   vim.cmd 'hi! link @keyword.function Keyword'
 --   vim.cmd 'hi! link @keyword.return Keyword'
---   -- vim.cmd('hi Type gui=italic')
 --   vim.cmd 'hi! link @Function Function'
 --   -- vim.cmd('hi @define gui=italic')
 -- end
 --
+vim.cmd 'hi @label gui=bold'
 -- -- Define an autocmd that runs when a buffer is opened
 -- vim.cmd 'autocmd BufRead * lua special_highlights()'
 vim.cmd 'hi! LspInlayHint guibg=#1f2335 guifg=#6272a4'

@@ -512,13 +512,13 @@ require('lspconfig')['ltex'].setup {
   on_attach = function(client, bufnr)
     -- rest of your on_attach process.
     require('ltex_extra').setup {
-      load_langs = { 'en-GB' },
+      load_langs = { 'en-GB', 'de-DE' },
       path = '/home/david/Documents/ltex-ls',
     }
   end,
   settings = {
     ltex = {
-      language = 'en-GB',
+      language = { 'en-GB', 'de-DE' },
       disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } },
     },
   },
@@ -527,10 +527,11 @@ require('lspconfig')['ltex'].setup {
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-vim.cmd 'autocmd InsertEnter * lua setup_cmp()'
+-- vim.cmd 'autocmd InsertEnter * lua setup_cmp()'
 function setup_cmp()
   require 'custom.cmpsetup'
 end
+setup_cmp()
 
 require('tokyonight').setup {
   style = 'night',

@@ -24,4 +24,12 @@ return {
     },
     staticcheck = true,
   },
+  asm_lsp = {
+    command = 'asm-lsp',
+    filetypes = {
+      'asm',
+      's',
+      'S',
+    },
+  },
 }
