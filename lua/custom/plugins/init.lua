@@ -680,25 +680,37 @@ return {
     event = 'BufRead',
     config = true,
   },
+  -- {
+  --   'Exafunction/codeium.vim',
+  --   lazy = true,
+  --   -- event = 'InsertEnter',
+  --   cmd = 'CodeiumEnable',
+  --   config = function()
+  --     -- Change '<C-g>' here to any keycode you like.
+  --     vim.keymap.set('i', '<C-g>', function()
+  --       return vim.fn['codeium#Accept']()
+  --     end, { expr = true })
+  --     vim.keymap.set('i', '<c-;>', function()
+  --       return vim.fn['codeium#CycleCompletions'](1)
+  --     end, { expr = true })
+  --     vim.keymap.set('i', '<c-,>', function()
+  --       return vim.fn['codeium#CycleCompletions'](-1)
+  --     end, { expr = true })
+  --     vim.keymap.set('i', '<c-x>', function()
+  --       return vim.fn['codeium#Clear']()
+  --     end, { expr = true })
+  --   end,
+  -- },
   {
-    'Exafunction/codeium.vim',
-    lazy = true,
-    -- event = 'InsertEnter',
-    cmd = 'CodeiumEnable',
+    'monkoose/neocodeium',
+    event = 'VeryLazy',
+    -- cmd = 'CodeiumEnable',
     config = function()
-      -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<C-g>', function()
-        return vim.fn['codeium#Accept']()
-      end, { expr = true })
-      vim.keymap.set('i', '<c-;>', function()
-        return vim.fn['codeium#CycleCompletions'](1)
-      end, { expr = true })
-      vim.keymap.set('i', '<c-,>', function()
-        return vim.fn['codeium#CycleCompletions'](-1)
-      end, { expr = true })
-      vim.keymap.set('i', '<c-x>', function()
-        return vim.fn['codeium#Clear']()
-      end, { expr = true })
+      local neocodeium = require 'neocodeium'
+      neocodeium.setup {
+        enabled = false,
+      }
+      vim.keymap.set('i', '<C-g>', neocodeium.accept)
     end,
   },
   {
@@ -711,6 +723,9 @@ return {
   { 'onsails/lspkind.nvim' },
   -- { 'david-0609/battery.nvim' },
   { 'justinhj/battery.nvim' },
+  { 'rcarriga/nvim-notify', opts = {
+    timeout = 1000,
+  } },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
