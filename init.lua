@@ -518,7 +518,7 @@ require('lspconfig')['ltex'].setup {
   end,
   settings = {
     ltex = {
-      language = { 'en-GB', 'de-DE' },
+      language = { 'en-GB' },
       disabledRules = { ['en-GB'] = { 'OXFORD_SPELLING_Z_NOT_S', 'ARROWS', 'NORTH_POLE' } },
     },
   },
