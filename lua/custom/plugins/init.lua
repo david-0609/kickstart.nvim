@@ -19,12 +19,12 @@ return {
       },
     },
   },
-  {
-    'windwp/nvim-autopairs',
-    lazy = true,
-    event = 'InsertEnter',
-    opts = {},
-  },
+  -- {
+  --   'windwp/nvim-autopairs',
+  --   lazy = true,
+  --   event = 'InsertEnter',
+  --   opts = {},
+  -- },
   {
     'romgrk/barbar.nvim',
     lazy = true,
@@ -374,6 +374,8 @@ return {
       }
       require('mini.bracketed').setup()
       require('mini.git').setup()
+      require('mini.surround').setup()
+      require('mini.pairs').setup()
     end,
   },
   {
@@ -461,6 +463,9 @@ return {
       }
     end,
   },
+
+  -- visualise lifetimes and ownership
+  { 'cordx56/rustowl', lazy = true, ft = { 'rust' }, dependencies = { 'neovim/nvim-lspconfig' } },
   {
     'm-demare/hlargs.nvim',
     lazy = true,
@@ -609,16 +614,16 @@ return {
     build = 'make install_jsregexp',
     dependencies = { 'rafamadriz/friendly-snippets', 'molleweide/LuaSnip-snippets.nvim' },
   },
-  {
-    'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'BufRead',
-    config = function()
-      require('nvim-surround').setup {
-        -- Configuration here, or leave empty to use defaults
-      }
-    end,
-  },
+  -- {
+  --   'kylechui/nvim-surround',
+  --   version = '*', -- Use for stability; omit to use `main` branch for the latest features
+  --   event = 'BufRead',
+  --   config = function()
+  --     require('nvim-surround').setup {
+  --       -- Configuration here, or leave empty to use defaults
+  --     }
+  --   end,
+  -- },
   {
     'goolord/alpha-nvim',
     lazy = false,
@@ -723,9 +728,12 @@ return {
   { 'onsails/lspkind.nvim' },
   -- { 'david-0609/battery.nvim' },
   { 'justinhj/battery.nvim' },
-  { 'rcarriga/nvim-notify', opts = {
-    timeout = 1000,
-  } },
+  {
+    'rcarriga/nvim-notify',
+    opts = {
+      timeout = 1000,
+    },
+  },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
@@ -837,10 +845,10 @@ return {
       -- refer to the configuration section below
     },
   },
-  -- {
-  --   'justinmk/vim-sneak',
-  --   lazy = false,
-  -- },
+  {
+    'justinmk/vim-sneak',
+    lazy = false,
+  },
   {
     'rareitems/hl_match_area.nvim',
     lazy = true,
@@ -1205,18 +1213,30 @@ return {
   --     }
   --   end,
   -- },
+  -- {
+  --   'folke/flash.nvim',
+  --   event = 'VeryLazy',
+  --   ---@type Flash.Config
+  --   opts = {},
+  -- -- stylua: ignore
+  -- keys = {
+  --   { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+  --   { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  --   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+  --   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  --   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  -- },
+  -- },
   {
-    'folke/flash.nvim',
+    'HakonHarnes/img-clip.nvim',
     event = 'VeryLazy',
-    ---@type Flash.Config
-    opts = {},
-  -- stylua: ignore
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  },
+    opts = {
+      -- add options here
+      -- or leave it empty to use the default settings
+    },
+    keys = {
+      -- suggested keymap
+      { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
+    },
   },
 }
