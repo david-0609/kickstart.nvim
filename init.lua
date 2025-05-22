@@ -539,7 +539,7 @@ require('tokyonight').setup {
   styles = {
     -- Style to be applied to different syntax groups
     -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true },
+    comments = { fg = '#6d7b7f', italic = true },
     keywords = { italic = true },
     functions = { bold = true },
     variables = { underline = true },

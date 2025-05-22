@@ -552,10 +552,10 @@ return {
       }
     end,
   },
-  {
-    'andweeb/presence.nvim',
-    lazy = true,
-  },
+  -- {
+  --   'andweeb/presence.nvim',
+  --   lazy = true,
+  -- },
   {
     'asiryk/auto-hlsearch.nvim',
     lazy = true,

@@ -73,11 +73,11 @@ map('n', '<leader>lb', '<cmd> Legendary <cr>', { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>xx', function()
   require('trouble').open()
 end)
-vim.keymap.set('n', '<leader>xw', function()
-  require('trouble').open 'workspace_diagnostics'
-end)
+-- vim.keymap.set('n', '<leader>xw', function()
+--   require('trouble').open 'workspace_diagnostics'
+-- end)
 vim.keymap.set('n', '<leader>xd', function()
-  require('trouble').open 'document_diagnostics'
+  require('trouble').open 'diagnostics'
 end)
 vim.keymap.set('n', '<leader>xq', function()
   require('trouble').open 'quickfix'
