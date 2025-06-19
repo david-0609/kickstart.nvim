@@ -463,9 +463,14 @@ return {
       }
     end,
   },
-
   -- visualise lifetimes and ownership
-  { 'cordx56/rustowl', lazy = true, ft = { 'rust' }, dependencies = { 'neovim/nvim-lspconfig' } },
+  -- {
+  --   'cordx56/rustowl',
+  --   version = '*', -- Latest stable version
+  --   build = 'cargo binstall rustowl',
+  --   lazy = false, -- This plugin is already lazy
+  --   opts = {},
+  -- },
   {
     'm-demare/hlargs.nvim',
     lazy = true,
@@ -1102,26 +1107,26 @@ return {
     keys = 'V',
     opts = {},
   },
-  {
-    'fredeeb/tardis.nvim',
-    lazy = true,
-    cmd = 'Tardis',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = true,
-  },
-  {
-    'https://git.sr.ht/~swaits/scratch.nvim',
-    lazy = true,
-    keys = {
-      { '<leader>bs', '<cmd>Scratch<cr>', desc = 'Scratch Buffer', mode = 'n' },
-      { '<leader>bS', '<cmd>ScratchSplit<cr>', desc = 'Scratch Buffer (split)', mode = 'n' },
-    },
-    cmd = {
-      'Scratch',
-      'ScratchSplit',
-    },
-    opts = {},
-  },
+  -- {
+  --   'fredeeb/tardis.nvim',
+  --   lazy = true,
+  --   cmd = 'Tardis',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = true,
+  -- },
+  -- {
+  --   'https://git.sr.ht/~swaits/scratch.nvim',
+  --   lazy = true,
+  --   keys = {
+  --     { '<leader>bs', '<cmd>Scratch<cr>', desc = 'Scratch Buffer', mode = 'n' },
+  --     { '<leader>bS', '<cmd>ScratchSplit<cr>', desc = 'Scratch Buffer (split)', mode = 'n' },
+  --   },
+  --   cmd = {
+  --     'Scratch',
+  --     'ScratchSplit',
+  --   },
+  --   opts = {},
+  -- },
   {
     'jiaoshijie/undotree',
     dependencies = 'nvim-lua/plenary.nvim',
@@ -1140,7 +1145,7 @@ return {
     },
   },
   {
-    'ahmedkhalf/project.nvim',
+    'david-0609/project.nvim',
     lazy = true,
     keys = {
       { '<leader>fp', '<cmd>Telescope projects<cr>', desc = 'Projects' },
@@ -1239,4 +1244,11 @@ return {
       { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
   },
+  -- { 'simonefranza/nvim-conv' },
+  -- {
+  --   'm4xshen/hardtime.nvim',
+  --   lazy = false,
+  --   dependencies = { 'MunifTanjim/nui.nvim' },
+  --   opts = {},
+  -- },
 }
